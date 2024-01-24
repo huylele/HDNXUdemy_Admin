@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { reviews } from '../../courses/overview/data';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { course, students } from './data';
@@ -62,7 +61,6 @@ export class OverviewTeacherComponent {
     });
 
     // Fetch Data
-    this.reviewData = reviews.reverse()
     this.courselist = course;
     this.studentlist = students;
 
@@ -199,7 +197,6 @@ export class OverviewTeacherComponent {
   saveReview() {
     if (this.reviewForm.valid) {
       if (this.reviewForm.get('_id')?.value) {
-        this.reviewData = reviews.map((order: { id: any; }) => order.id === this.reviewForm.get('_id')?.value ? { ...order, ...this.reviewForm.value } : order);
       } else {
         const title = this.reviewForm.get('title')?.value;
         const rating = this.reviewForm.get('rate')?.value;

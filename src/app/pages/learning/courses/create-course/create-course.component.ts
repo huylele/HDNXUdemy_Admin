@@ -86,7 +86,7 @@ export class CreateCourseComponent {
   };
 
   public dropzoneVideoConfig: DropzoneConfigInterface = {
-    url: `${environment.urlUploadFile}upload-video-to-server/file-document`,
+    url: `${environment.urlUploadFile}upload-video-to-server/mp4-video-course`,
     clickable: true,
     addRemoveLinks: true,
     acceptedFiles: 'video/*',
