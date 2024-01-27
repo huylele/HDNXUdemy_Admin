@@ -150,7 +150,7 @@
                                     <label for="Property-price-input" class="form-label">Giá khuyến mãi<span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
-                                        <input appFormatMoney type="text" class="form-control" id="Property-price-input" placeholder="Nhập giá khuyến mãi" required formControlName="percentDiscount">
+                                        <input appFormatMoney type="text" class="form-control" id="Property-price-input" placeholder="Nhập giá khuyến mãi" required formControlName="priceOfDiscount">
                                     </div>
                                 </div>
                             </div><!--end col-->
@@ -256,7 +256,7 @@
                     <div class="border-top border-dashed mt-3 pt-3 d-flex align-items-center justify-content-between gap-3">
                         @if(courseForm.value.isDiscount == true)
                         {
-                        <h4 class="text-truncate text-capitalize">${{courseForm.value.percentDiscount | numberFormatThousand}} <small class="text-decoration-line-through fs-xs text-muted align-baseline">{{courseForm.value.priceOfCourse |numberFormatThousand}}</small></h4>
+                        <h4 class="text-truncate text-capitalize">${{courseForm.value.priceOfDiscount | numberFormatThousand}} <small class="text-decoration-line-through fs-xs text-muted align-baseline">{{courseForm.value.priceOfCourse |numberFormatThousand}}</small></h4>
                         } @else {
                         <h4 class="text-truncate text-capitalize">${{courseForm.value.priceOfCourse |numberFormatThousand}}</h4>
                         }
