@@ -152,7 +152,7 @@ export class OverviewComponent {
     this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
   }
 
-  // open & close chatbox
+  // open & close chatbot
   openChatBox() {
     document.getElementById('emailchat-detailElem')?.classList.add('d-block')
   }
@@ -221,7 +221,7 @@ export class OverviewComponent {
     })
   }
 
-  goToEditCourse() { 
+  goToEditCourse() {
     this.router.navigate([`/learning/courses/edit-course/${this.idCourse}`]);
   }
 

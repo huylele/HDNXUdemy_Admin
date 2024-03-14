@@ -19,7 +19,7 @@
     "UpdateStatusCourse": "master-course/course/status/{0}",
     "UpdateInformationCourse": "master-course/course/{0}",
     "GetListAllCourse": "master-course/course",
-    "GetCourses": "master-course/course/{0}",
+    "GetCourses": "master-course/course/{0}/{1}",
     "CreateContentCourse": "master-course/course-content",
     "UpdateStatusContentCourse": "master-course/course-content/status/{0}",
     "UpdateInformationContentCourse": "master-course/course-content/{0}",

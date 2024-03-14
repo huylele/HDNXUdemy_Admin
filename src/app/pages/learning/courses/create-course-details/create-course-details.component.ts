@@ -259,7 +259,7 @@ export class CreateCourseDetailsComponent {
       idContent: this.idContent,
       nameSubContent: this.contentDetailsCourseForm.value.nameSubContent,
       timeOfContent: '',
-      isLearningFree: this.contentDetailsCourseForm.value.isLearningFree,
+      isLearningFree: this.contentDetailsCourseForm.value.isLearningFree ?? false,
       idVideoUpload: this.uploadedVideoFile.keyOfFile,
       fileNameVideo: this.uploadedVideoFile.fileName,
       isFinishConvert: true

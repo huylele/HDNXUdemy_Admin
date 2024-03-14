@@ -54,6 +54,11 @@
                                 Chính sách
                             </a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'fileAttachments'" (click)="changeTab('fileAttachments')" role="tab" aria-selected="false" tabindex="-1">
+                                Tài liệu (File bài học)
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div><!--end card-->
@@ -167,6 +172,107 @@
                             </div>
                         </div>
                         <div [hidden]="currentTab !== 'faqs'" class="tab-pane active" id="faqs" role="tabpanel">
+                            <div class="row g-3">
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">What are good questions to ask about course?</h6>
+                                            <p class="text-muted mb-0">What textbooks are required for the course? What
+                                                days/times do class sessions occur or are they fully online? Are there any
+                                                online platforms, programs, and/or softwares needed for the course? When are
+                                                major assignments/ exams due for this course and what are its point values?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">How does online learning work?</h6>
+                                            <p class="text-muted mb-0">Distance learning is an educational process where
+                                                students receive instruction through online classes, video recordings, video
+                                                conferencing, or any other audio/visual technology medium.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">Why is online learning better?</h6>
+                                            <p class="text-muted mb-0">Because online courses provide students with full
+                                                control over their studies, they can work at their own pace. Pupils, on
+                                                average, work faster and absorb more information in online courses than they
+                                                would otherwise.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">How successful is online learning?</h6>
+                                            <p class="text-muted mb-0">Some students do as well in online courses as in
+                                                in-person courses, some may actually do better, but, on average, students do
+                                                worse in the online setting, and this is particularly true for students with
+                                                weaker academic backgrounds.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">How do you ask questions about learning?</h6>
+                                            <p class="text-muted mb-0">Avoid asking leading questions, those that prompt or
+                                                suggest the answer, and yes/no questions. If a yes/no question is warranted,
+                                                be ready with a follow-up question to encourage students to critically
+                                                evaluate the material and engage in discussion.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">What are course objectives?</h6>
+                                            <p class="text-muted mb-0">A course objective specifies a behavior, skill, or
+                                                action that a student can demonstrate if they have achieved mastery of the
+                                                objective.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <i class="bi bi-question-circle text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="card-title">What is the advantage of learning?</h6>
+                                            <p class="text-muted mb-0">By consistently educating yourself and trying new
+                                                things, you'll learn you're capable of change and growth, which keeps you
+                                                open to new opportunities in life. “Learning a new skill can get you out of
+                                                a rut.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                        <div [hidden]="currentTab !== 'fileAttachments'" class="tab-pane active" id="fileAttachments" role="tabpanel">
                             <div class="row g-3">
                                 <div class="col-lg-6">
                                     <div class="d-flex gap-2">

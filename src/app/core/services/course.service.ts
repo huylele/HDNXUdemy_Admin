@@ -34,7 +34,7 @@ export class CourseServices {
     }
 
     getCourses(id: number) {
-        const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'GetCourses', id);
+        const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'GetCourses', id, true);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<GetCourseWithDetailsContent>) => res));
     }
 
