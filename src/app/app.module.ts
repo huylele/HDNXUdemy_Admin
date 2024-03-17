@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -29,7 +29,6 @@ import { fakebackendInterceptor } from './core/helpers/fake-backend';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { CRMEffects } from './store/CRM/crm.effects';
-import { ECoReducer } from './store/Ecommerce/ecommerce.reducer';
 import { ECoEffects } from './store/Ecommerce/ecommerce.effects';
 import { LearningEffects } from './store/Learning/learning.effects';
 import { RealEffects } from './store/RealEstate/realEstate.effects';
@@ -113,6 +112,7 @@ if (environment.defaultauth === 'firebase') {
     AngularFireAuthModule,
   ],
   providers: [
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'VND'},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: fakebackendInterceptor, multi: true }, TransferHttp

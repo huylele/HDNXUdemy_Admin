@@ -5,3 +5,13 @@ export interface RepositoryModel<T> {
   statusCode: number;
   systemMessage?: string | null;
 }
+
+export interface PageResult<T>{
+  currentPage: number;
+  pageCount: number;
+  pageSize: number;
+  rowCount: number;
+  firstRowOnPage: number;
+  lastRowOnPage: number;
+  results?: T | null;
+}

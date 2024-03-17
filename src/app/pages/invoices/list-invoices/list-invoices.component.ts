@@ -4,6 +4,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Store } from '@ngrx/store';
 import { selectData, selectlistData } from 'src/app/store/Invoices/invoices.selector';
 import { deleteinvoice, fetchInvoiceData, fetchInvoicelistData } from 'src/app/store/Invoices/invoices.action';
+import { PurchaseOrder } from 'src/app/models/models/purchase';
+import { PurchaseServices } from 'src/app/core/services/purchase.service';
+import { PageResult } from 'src/app/models/models/repository_base';
 
 @Component({
   selector: 'app-list-invoices',
@@ -17,15 +20,17 @@ export class ListInvoicesComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-  invoiceslist: any
-  invoices: any;
+  invoiceslist: PageResult<PurchaseOrder[]>;
+  invoices: PurchaseOrder[] = [];
   deleteID: any;
   masterSelected!: boolean;
   invoiceCard: any;
   term: any
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
 
-  constructor(public store: Store) {
+  constructor(
+    public store: Store,
+    private readonly purchaseServices : PurchaseServices,) {
   }
 
   ngOnInit(): void {
@@ -35,23 +40,12 @@ export class ListInvoicesComponent {
     this.breadCrumbItems = [
       { label: 'Danh sách đơn hàng', active: true }
     ];
-    // store
-
-    // Fetch Data
-    setTimeout(() => {
-      this.store.dispatch(fetchInvoicelistData());
-      this.store.select(selectlistData).subscribe((data) => {
-        this.invoices = data;
-        this.invoiceslist = data;
-        this.invoices = this.invoiceslist.slice(0, 10)
-      });
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1000)
 
     this.store.dispatch(fetchInvoiceData());
     this.store.select(selectData).subscribe((data) => {
       this.invoiceCard = data;
     });
+    this.getListPurchaseOrderOfCourse(1, 10);
   }
 
   // Sort Data
@@ -76,9 +70,9 @@ export class ListInvoicesComponent {
   // filterdata
   filterdata() {
     if (this.term) {
-      this.invoices = this.invoiceslist.filter((el: any) => el.customer.toLowerCase().includes(this.term.toLowerCase()))
+      this.invoices = this.invoiceslist.results.filter((el: any) => el.customer.toLowerCase().includes(this.term.toLowerCase()))
     } else {
-      this.invoices = this.invoiceslist
+      this.invoices = this.invoiceslist.results;
     }
     // noResultElement
     this.updateNoResultDisplay();
@@ -99,12 +93,10 @@ export class ListInvoicesComponent {
   checkedValGet: any[] = [];
   // The master checkbox will check/ uncheck all items
   checkUncheckAll(ev: any) {
-    this.invoices = this.invoices.map((x: { states: any }) => ({ ...x, states: ev.target.checked }));
-
     var checkedVal: any[] = [];
     var result;
     for (var i = 0; i < this.invoices.length; i++) {
-      if (this.invoices[i].states == true) {
+      if (this.invoices[i].isCheck == true) {
         result = this.invoices[i].id;
         checkedVal.push(result);
       }
@@ -118,7 +110,7 @@ export class ListInvoicesComponent {
     var checkedVal: any[] = [];
     var result
     for (var i = 0; i < this.invoices.length; i++) {
-      if (this.invoices[i].states == true) {
+      if (this.invoices[i].isCheck == true) {
         result = this.invoices[i].id;
         checkedVal.push(result);
       }
@@ -147,7 +139,19 @@ export class ListInvoicesComponent {
   pageChanged(event: any): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.invoices = this.invoiceslist
+    this.invoices = this.invoiceslist.results
       .slice(startItem, endItem);
+  }
+
+  getListPurchaseOrderOfCourse(pageIndex: number, pageSize: number) {
+    this.purchaseServices.getListPurchaseOrder(pageIndex, pageSize).subscribe((res) => {
+      if(res.retCode === 0 || res.systemMessage === ''){
+        this.invoiceslist = res.data;
+        this.invoices = this.invoiceslist.results;
+        document.getElementById('elmLoader')?.classList.add('d-none');
+      } else {
+        document.getElementById('elmLoader')?.classList.add('d-none')
+      }
+    });
   }
 }

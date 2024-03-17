@@ -6,7 +6,8 @@
     "start": "ng serve --port 65362",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "buildPro": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {

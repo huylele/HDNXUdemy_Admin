@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://hdnx-udemy-api.devproinsights.com/api/v1/',
-  urlUploadFile : 'https://hdnx-udemy-convert-video.devproinsights.com/api/v1/',
+  baseUrl: 'https://hdnxapi.devproinsights.com/api/v1/',
+  urlUploadFile : 'https://hdnxvideo.devproinsights.com/api/v1/',
   defaultauth: 'fakebackend',
   firebaseConfig: {
     apiKey: "AIzaSyCqS9cSPrDCNSQ-Ku2kZf5DBWjPPv7hvcA",
