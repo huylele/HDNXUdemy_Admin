@@ -37,7 +37,16 @@ export class PurchaseServices {
     getListPurchaseOrder(pageIndex: number, pageSize: number) {
         const ApiUrl = LinkSettings.GetResLinkSetting('PurchaseOrder', 'GetListPurcharseCourses', pageIndex, pageSize);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<PageResult<PurchaseOrder[]>>) => res));
+    }
 
+    updateStatusPurchase(model: PurchaseOrder) {
+        const ApiUrl = LinkSettings.GetResLinkSetting('PurchaseOrder', 'UpdateStatusPurchase', model.id);
+        return this.transferHttp.put(ApiUrl, model).pipe(map((res: RepositoryModel<PageResult<PurchaseOrder[]>>) => res));
+    }
+
+    getPurchaseCourseDetail(idPurchase: number) {
+        const ApiUrl = LinkSettings.GetResLinkSetting('PurchaseOrder', 'GetPurchaseCorseDetail', idPurchase);
+        return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<PurchaseOrder>) => res));
     }
 
 }

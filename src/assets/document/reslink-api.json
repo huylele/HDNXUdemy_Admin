@@ -91,6 +91,7 @@
     "CreateRequestPurchase": "purchase-course/create-purchase",
     "UpdateStatusPurchase": "purchase-course/purchase-course/{0}",
     "IsCheckCoursePurchase": "purchase-course/check-purchase-course/{0}",
-    "GetListPurcharseCourses": "purchase-course/get-list-purchase-course/{0}/{1}"
+    "GetListPurcharseCourses": "purchase-course/get-list-purchase-course/{0}/{1}",
+    "GetPurchaseCorseDetail" : "purchase-course/get-detail-purchase-course/{0}"
   }
 }

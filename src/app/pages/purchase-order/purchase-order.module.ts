@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Page Route
-import { InvoicesRoutingModule } from './invoices-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 // Count To
@@ -20,16 +19,18 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // Component
-import { ListInvoicesComponent } from './list-invoices/list-invoices.component';
+import { ListPurchaseOrderComponent } from './list-purchase-order/list-purchase-order.component';
+import { PurchaseOrderReviewComponent } from './purchase-review/purchase-review.component';
+import { PurchaseOrderRoutingModule } from './purchase-routing.module';
 
 
 @NgModule({
   declarations: [
-    ListInvoicesComponent,
+    ListPurchaseOrderComponent, PurchaseOrderReviewComponent
   ],
   imports: [
     CommonModule,
-    InvoicesRoutingModule,
+    PurchaseOrderRoutingModule,
     SharedModule,
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
@@ -47,4 +48,4 @@ import { ListInvoicesComponent } from './list-invoices/list-invoices.component';
   ]
 })
 
-export class InvoicesModule { }
+export class PurchaseOrderModule { }

@@ -7,16 +7,17 @@ import { deleteinvoice, fetchInvoiceData, fetchInvoicelistData } from 'src/app/s
 import { PurchaseOrder } from 'src/app/models/models/purchase';
 import { PurchaseServices } from 'src/app/core/services/purchase.service';
 import { PageResult } from 'src/app/models/models/repository_base';
+import { PurchaseOrderCode } from 'src/app/models/enum/etype_project.enum';
 
 @Component({
-  selector: 'app-list-invoices',
-  templateUrl: './list-invoices.component.html',
-  styleUrls: ['./list-invoices.component.scss'],
+  selector: 'app-list-purchase-order',
+  templateUrl: './list-purchase-order.component.html',
+  styleUrls: ['./list-purchase-order.component.scss'],
   providers: [DecimalPipe]
 })
 
 // List Component
-export class ListInvoicesComponent {
+export class ListPurchaseOrderComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
@@ -30,7 +31,7 @@ export class ListInvoicesComponent {
 
   constructor(
     public store: Store,
-    private readonly purchaseServices : PurchaseServices,) {
+    private readonly purchaseServices: PurchaseServices,) {
   }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class ListInvoicesComponent {
     this.store.dispatch(fetchInvoiceData());
     this.store.select(selectData).subscribe((data) => {
       this.invoiceCard = data;
+      console.table(this.invoiceCard);
     });
     this.getListPurchaseOrderOfCourse(1, 10);
   }
@@ -145,7 +147,7 @@ export class ListInvoicesComponent {
 
   getListPurchaseOrderOfCourse(pageIndex: number, pageSize: number) {
     this.purchaseServices.getListPurchaseOrder(pageIndex, pageSize).subscribe((res) => {
-      if(res.retCode === 0 || res.systemMessage === ''){
+      if (res.retCode === 0 || res.systemMessage === '') {
         this.invoiceslist = res.data;
         this.invoices = this.invoiceslist.results;
         document.getElementById('elmLoader')?.classList.add('d-none');
@@ -154,4 +156,17 @@ export class ListInvoicesComponent {
       }
     });
   }
+
+  confirmOrder(model: PurchaseOrder) {
+    model.purcharseStatus == PurchaseOrderCode.Payment;
+    this.purchaseServices.updateStatusPurchase(model).subscribe((res) => {
+      if (res.retCode === 0 || res.systemMessage === '') {
+        this.getListPurchaseOrderOfCourse(1, 10);
+      } else {
+        document.getElementById('elmLoader')?.classList.add('d-none')
+      }
+    })
+  }
+
+
 }

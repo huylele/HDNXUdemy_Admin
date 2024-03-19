@@ -23,7 +23,7 @@
                             <h3 class="mb-0"><span class="counter-value" [countUp]="data.count"></span> <small class="text-{{data.iconColor}} fs-xs fw-normal ms-1"><i class="{{data.statusIcon}} align-baseline"></i> {{data.amout}}%</small></h3>
                         </div>
                     </div>
-                }
+                    }
                 </div>
             </div>
         </div><!--end card-->
@@ -98,26 +98,27 @@
                                 <td>
                                     <div class="form-check"> <input class="form-check-input" type="checkbox" name="checkAll" value="{{data?.id}}" [(ngModel)]="data.isCheck" (change)="onCheckboxChange($event)"> <label class="form-check-label"></label> </div>
                                 </td>
-                                <td class="invoice_id"><a routerLink="/invoices/overview">#TBS{{data?.id}}</a>
+                                <td class="invoice_id"><a routerLink="/purchase-order/purchase-order-review/{{data?.id}}">#TBS{{data?.id}}</a>
                                 </td>
-                                <td class="customer_name">{{data?.studentName}}</td>
-                                <td class="email">{{data?.email}}</td>
+                                <td class="customer_name">{{data?.user?.name}}</td>
+                                <td class="email">{{data?.user?.email}}</td>
                                 <td class="create_date">{{data?.createDate | date :'yyyy-mm-dd hh:mm:ss'}}</td>
-                                <td class="due_date">{{data?.purchaseDate}}</td>
+                                <td class="due_date">{{data?.purchaseDate | date :'yyyy-mm-dd hh:mm:ss'}}</td>
                                 <td class="amount">{{data?.totalPrice | currency }}</td>
-                                <td class="status"><span class="badge" [ngClass]="{'bg-success-subtle text-success':data.nameStatus == 'Payment','bg-danger-subtle text-danger':data.nameStatus === 'Reject','bg-warning-subtle text-warning':data.nameStatus ==='Pending-Payment' || data.nameStatus === 'Request'}">{{data.nameStatus}}</span>
+                                <td class="status"><span class="badge"
+                                        [ngClass]="{'bg-success-subtle text-success':data.nameStatus == 'Payment','bg-danger-subtle text-danger':data.nameStatus === 'Reject','bg-warning-subtle text-warning':data.nameStatus ==='Pending-Payment' || data.nameStatus === 'Request'}">{{data.nameStatus}}</span>
                                 </td>
                                 <td>
                                     <ul class="d-flex gap-2 list-unstyled mb-0">
-                                        <li><a tooltip="Xem" href="javascript:void(0);" class="btn btn-subtle-primary btn-icon btn-sm" routerLink="/invoices/overview" data-view-id="24301901"><i class="ph-eye" ></i></a> </li>
-                                        <li><a tooltip="Sửa" href="javascript:void(0);" class="btn btn-subtle-warning btn-icon btn-sm" routerLink="/invoices/create" data-edit-id="24301901"><i class="ph-pencil" ></i></a> </li>
-                                        <li><a tooltip="Xoá đơn hàng" href="javascript:void(0);" (click)="removeItem(data.id)" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash" ></i></a> </li>
+                                        <li><a tooltip="Xem" href="javascript:void(0);" class="btn btn-subtle-primary btn-icon btn-sm" routerLink="/purchase-order/purchase-order-review/{{data?.id}}" data-view-id="24301901"><i class="ph-eye"></i></a> </li>
+                                        <li><a tooltip="Sửa" href="javascript:void(0);" class="btn btn-subtle-warning btn-icon btn-sm" routerLink="/invoices/create" data-edit-id="24301901"><i class="ph-pencil"></i></a> </li>
                                         <li><a tooltip="Gửi email thông tin" href="javascript:void(0);" class="btn btn-subtle-dark btn-icon btn-sm"><i class="ph ph-paper-plane-right"></i></a> </li>
-                                        <li><a tooltip="Hoàn thành đơn hàng" href="javascript:void(0);" class="btn btn-subtle-info btn-icon btn-sm"><i class="ph ph-check-circle"></i></a> </li>
+                                        <li [hidden]="(data.nameStatus == 'Payment')"><a tooltip="Hoàn thành đơn hàng" href="javascript:void(0);" class="btn btn-subtle-info btn-icon btn-sm"><i class="ph ph-check-circle"></i></a> </li>
+                                        <li><a tooltip="Xoá đơn hàng" href="javascript:void(0);" (click)="removeItem(data.id)" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a> </li>
                                     </ul>
                                 </td>
                             </tr>
-                        }
+                            }
                         </tbody><!-- end tbody -->
                     </table><!-- end table -->
 

@@ -24,5 +24,6 @@ export class Course {
     categoryName?: string;
     userName?: string;
     processCourseName?: string;
-    processCourse: number;
+    processCourse?: number;
+    amountOfTheCourse?: number;
 }
