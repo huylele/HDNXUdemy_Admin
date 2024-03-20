@@ -26,7 +26,7 @@ export class CategoryServices {
         return this.transferHttp.put(ApiUrl, model).pipe(map((res: RepositoryModel<boolean>) => res));
     }
 
-    deleteCategories(id: string) {
+    deleteCategories(id: number) {
         const ApiUrl = LinkSettings.GetResLinkSetting('MasterData', 'DeleteCategory', id);
         return this.transferHttp.putUrl(ApiUrl).pipe(map((res: RepositoryModel<boolean>) => res));
     }

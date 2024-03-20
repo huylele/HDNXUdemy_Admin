@@ -4,8 +4,8 @@ import { PurchaseDetailsModel } from "./purchase-details";
 import { StudentUser } from "./student-user";
 
 export class PurchaseOrder {
-    id?: string;
-    idStudent?: string;
+    id?: number;
+    idStudent?: number;
     contentTranferBanking?: string;
     totalPrice?: number;
     discountAmount?: number;

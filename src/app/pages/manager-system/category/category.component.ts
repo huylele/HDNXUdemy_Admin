@@ -30,7 +30,7 @@ export class CategoryComponent {
   categorieslist: CategoryModel[] = [];
   publicId: string;
   pictureUrl: string;
-  idCategory: string;
+  idCategory: number;
 
   @ViewChild('addCategory', { static: false }) addCategory?: ModalDirective;
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
@@ -196,7 +196,7 @@ export class CategoryComponent {
     modalButton.innerHTML = 'Lưu';
   }
 
-  editCategory(id: string) {
+  editCategory(id: number) {
     this.idCategory = id;
     this.addCategory?.show();
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement

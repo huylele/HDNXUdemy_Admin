@@ -379,13 +379,16 @@
         </div><!--end col-->
         <div class="col-xl-3 col-lg-4">
             <div class="card overflow-hidden ribbon-box">
-                <span class="ribbon ribbon-danger rounded-end">Off {{(courseAndDetailContent?.priceOfCourse - courseAndDetailContent?.priceOfDiscount)* 1.1}}%</span>
+                <span class="ribbon ribbon-danger rounded-end">Off {{((courseAndDetailContent?.priceOfCourse - courseAndDetailContent?.priceOfDiscount)/ (courseAndDetailContent?.priceOfCourse))* 100 | number }}%</span>
                 <div class="card-body bg-info-subtle text-center learning-widgets d-flex align-items-center justify-content-center">
                     <img src="{{courseAndDetailContent?.pictureUrl}}" alt="" class="avatar-lg">
                     <img src="{{courseAndDetailContent?.pictureUrl}}" alt="" class="effect">
                 </div>
                 <div class="card-body">
-                    <h4 class="text-truncate text-capitalize">{{courseAndDetailContent?.priceOfDiscount | currency: 'VND':'symbol':'1.0-0' }} <small class="text-decoration-line-through fs-xs text-muted align-baseline">{{courseAndDetailContent?.priceOfCourse | currency: 'VND':'symbol':'1.0-0'}}</small></h4>
+                    <h4 *ngIf="courseAndDetailContent.isDiscount" class="text-truncate text-capitalize">{{courseAndDetailContent?.priceOfDiscount | currency: 'VND':'symbol':'1.0-0' }} 
+                        <small class="text-decoration-line-through fs-xs text-muted align-baseline">{{courseAndDetailContent?.priceOfCourse | currency: 'VND':'symbol':'1.0-0'}}</small>
+                    </h4>
+                    <h4 class="text-truncate text-capitalize">{{courseAndDetailContent?.priceOfCourse | currency: 'VND':'symbol':'1.0-0'}}</h4>
                     <div class="hstack gap-2">
                         <button class="btn btn-primary w-100" (click)="publicTheCourse()"><i class="bi bi-bag align-baseline me-1"></i>Publish</button>
                         <button class="btn btn-info w-100" (click)="goToEditCourse()"><i class="bi bi-bag align-baseline me-1"></i>Chỉnh sửa</button>

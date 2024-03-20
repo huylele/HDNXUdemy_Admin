@@ -43,8 +43,8 @@ export class CreateCourseDetailsComponent {
   contentCourseForm!: UntypedFormGroup;
   contentDetailsCourseForm!: UntypedFormGroup;
   dataInsertContent: CourseContent;
-  idCourse: string;
-  idContent: string;
+  idCourse: number;
+  idContent: number;
   isShowEditContent: boolean = false;
   uploadedVideoFile: ReturnUploadFile;
   fileLoadUpload: File;
@@ -99,7 +99,7 @@ export class CreateCourseDetailsComponent {
   isArtplayerInitialized = false;
   contentCourseDetail: CourseContentDetails;
   contentName: string;
-  activeItemIndex: string | null = null;
+  activeItemIndex: number | null = null;
 
 
 
@@ -124,7 +124,7 @@ export class CreateCourseDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.idCourse = this.routers.snapshot.paramMap.get('idCourse');
+    this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
     this.breadCrumbItems = [
       { label: 'Khoá học', active: true },
       { label: 'Nội dung khoá học', active: true }
@@ -146,7 +146,7 @@ export class CreateCourseDetailsComponent {
 
   }
 
-  loadDataContentOfCourse(idCourse: string) {
+  loadDataContentOfCourse(idCourse: number) {
     this.isLoading = true;
     this.courseServices.getListContentCourse(idCourse).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == '') {
@@ -243,7 +243,7 @@ export class CreateCourseDetailsComponent {
     }
   }
 
-  addDetailForCourse(idContent: string) {
+  addDetailForCourse(idContent: number) {
     this.isShowEditContent = true;
     this.idContent = idContent;
     this.isReviewVideo = false;
@@ -278,7 +278,7 @@ export class CreateCourseDetailsComponent {
     }
   }
 
-  getDataOfContentDetails(id: string) {
+  getDataOfContentDetails(id: number) {
     this.isLoadingContent = true;
     this.isReviewVideo = true;
     this.isShowEditContent = true;
@@ -295,7 +295,7 @@ export class CreateCourseDetailsComponent {
     });
   }
 
-  clickHeaderOfList(idContent: string, contentName: string) {
+  clickHeaderOfList(idContent: number, contentName: string) {
     this.contentName = contentName;
     this.idContent = idContent;
   }
@@ -315,7 +315,7 @@ export class CreateCourseDetailsComponent {
     })
   }
 
-  onClickContentCourse(id: string) {
+  onClickContentCourse(id: number) {
     this.activeItemIndex = id;
   }
 }

@@ -130,8 +130,8 @@ export class CreateCourseComponent {
 
   public items = ['Bắt đầu', 'Trung bình', 'Cấp cao', 'Chuyên gia']
 
-  addDetailsForCourse() {
-    this.router.navigate(['/learning/courses/create-course-details']);
+  addDetailsForCourse(idCourse: number) {
+    this.router.navigate([`/learning/courses/create-course-details/${idCourse}`]);
   }
 
   saveCourse() {
@@ -159,7 +159,7 @@ export class CreateCourseComponent {
         fileUrl: this.uploadedVideoFile.fileName,
         processCourse: 0
       };
-      if (idCourse != null && idCourse != 0 && idCourse != "" && idCourse != undefined) {
+      if (idCourse !== null && idCourse !== 0 && idCourse !== "" && idCourse != undefined) {
         dataInsert.processCourse = this.courseInsertData.processCourse;
         this.courseServices.updateInformationCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
@@ -171,8 +171,10 @@ export class CreateCourseComponent {
       } else {
         dataInsert.processCourse = 0;
         this.courseServices.createCourse(dataInsert).subscribe((res) => {
-          if (res.retCode == 0 && res.systemMessage == "") {
+          if (res.retCode === 0 && res.systemMessage === "" && res.data.id !== 0) {
             this.messengerService.successes("Cập nhật thành công");
+            this.addDetailsForCourse(res.data.id);
+            this.isCreateCourse = true;
           } else {
             this.messengerService.errorWithIssue();
           }

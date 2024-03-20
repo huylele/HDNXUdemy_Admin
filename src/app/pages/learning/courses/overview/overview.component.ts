@@ -31,10 +31,10 @@ export class OverviewComponent {
   files: File[] = [];
   rate: any;
   currentTab = 'description';
-  idCourse: string;
+  idCourse: number;
   courseAndDetailContent: GetCourseWithDetailsContent;
   isLoading: boolean = false;
-  activeItemIndex: string | null = null;
+  activeItemIndex: number | null = null;
   contentCourseDetail: CourseContentDetails;
 
   @ViewChild('artplayer') artplayerElement: ElementRef;
@@ -48,7 +48,7 @@ export class OverviewComponent {
     volume: 0.5,
     isLive: false,
     muted: false,
-    autoplay: false,
+    autoplay: true,
     pip: true,
     autoMini: true,
     setting: true,
@@ -105,7 +105,7 @@ export class OverviewComponent {
   }
 
   ngOnInit(): void {
-    this.idCourse = this.routers.snapshot.paramMap.get('idCourse');
+    this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
     this.breadCrumbItems = [
       { label: 'Khoá học', active: true },
       { label: 'Xem chi tiết khoá học', active: true }
@@ -199,7 +199,7 @@ export class OverviewComponent {
     })
   }
 
-  onClickContentCourse(id: string) {
+  onClickContentCourse(id: number) {
     this.activeItemIndex = id;
   }
 
@@ -225,7 +225,7 @@ export class OverviewComponent {
     this.router.navigate([`/learning/courses/edit-course/${this.idCourse}`]);
   }
 
-  getDataOfContentDetails(id: string) {
+  getDataOfContentDetails(id: number) {
     this.courseServices.getContentCourseDetails(id).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == "") {
         this.contentCourseDetail = res.data;

@@ -37,7 +37,7 @@ export class ListFileUploadComponent {
   fileUpload!: UntypedFormGroup;
   fileManagerUpload: FilemanagerModel;
   resultUpload: ReturnUploadFile;
-  idFileUpload: string;
+  idFileUpload: number;
 
   @ViewChild('uploadFile', { static: false }) uploadFile?: ModalDirective;
   constructor(
@@ -214,7 +214,7 @@ export class ListFileUploadComponent {
     this.fileSoftwares = this.listFileSoftwares.slice(startItem, this.endItem);
   }
 
-  editFileUpload(id: string) {
+  editFileUpload(id: number) {
     this.uploadedFiles = [];
     this.idFileUpload = id;
     this.uploadFile?.show();

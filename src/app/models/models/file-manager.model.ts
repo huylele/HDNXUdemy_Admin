@@ -1,5 +1,5 @@
 export class FilemanagerModel {
-    id?: string;
+    id?: number;
     fileName?: string;
     fileType?: number;
     fileUrl?: string;

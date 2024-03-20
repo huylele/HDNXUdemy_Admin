@@ -529,7 +529,7 @@ export class ListUserManagerComponent {
     });
   }
 
-  addEditStudent(id: string) {
+  addEditStudent(id: number) {
     this.router.navigate([`/user-manager/add-edit-user-account/${id}`]);
   }
 }

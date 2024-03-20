@@ -518,7 +518,7 @@ export class ListStudentComponent implements OnInit {
     });
   }
 
-  addEditStudent(id: string) {
+  addEditStudent(id: number) {
     this.router.navigate([`/learning/student/add-edit-student/${id}`]);
   }
 }

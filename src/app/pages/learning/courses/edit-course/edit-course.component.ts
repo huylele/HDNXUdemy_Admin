@@ -52,7 +52,7 @@ export class EditCourseComponent {
   isLoading = false;
 
   ngOnInit(): void {
-    const id = this.routers.snapshot.paramMap.get('id');
+    const id = Number(this.routers.snapshot.paramMap.get('id'));
     this.breadCrumbItems = [
       { label: 'Khoá học', active: true, linkRouter: '/learning/list-course', isRouter: true },
       { label: 'Tạo khoá học', active: true, linkRouter: '', isRouter: false },
@@ -147,7 +147,7 @@ export class EditCourseComponent {
 
   public items = ['Bắt đầu', 'Trung bình', 'Cấp cao', 'Chuyên gia']
 
-  addDetailsForCourse(id: string) {
+  addDetailsForCourse(id: number) {
     this.router.navigate([`/learning/courses/create-course-details/${id}`]);
   }
 
@@ -213,7 +213,7 @@ export class EditCourseComponent {
     return false;
   }
 
-  loadDataOfCourse(id: string) {
+  loadDataOfCourse(id: number) {
     this.uploadedPictureFiles = [];
     this.isLoading = true;
     this.courseServices.getCourses(id).subscribe((res) => {

@@ -15,7 +15,7 @@ export class CourseServices {
 
     createCourse(model: Course) {
         const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'CreateCourse', model.id);
-        return this.transferHttp.post(ApiUrl, model).pipe(map((res: RepositoryModel<boolean>) => res));
+        return this.transferHttp.post(ApiUrl, model).pipe(map((res: RepositoryModel<Course>) => res));
     }
 
     updateStatusCourse(model: Course) {
@@ -33,7 +33,7 @@ export class CourseServices {
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<Course[]>) => res));
     }
 
-    getCourses(id: string) {
+    getCourses(id: number) {
         const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'GetCourses', id, true);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<GetCourseWithDetailsContent>) => res));
     }
@@ -53,7 +53,7 @@ export class CourseServices {
         return this.transferHttp.put(ApiUrl, model).pipe(map((res: RepositoryModel<boolean>) => res));
     }
 
-    getListContentCourse(idCourse: string) {
+    getListContentCourse(idCourse: number) {
         const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'GetListContentCourse', idCourse);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<ContentAndDetails[]>) => res));
     }
@@ -83,7 +83,7 @@ export class CourseServices {
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<CourseContent[]>) => res));
     }
 
-    getContentCourseDetails(id: string) {
+    getContentCourseDetails(id: number) {
         const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'GetContentCourseDetails', id);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<CourseContentDetails>) => res));
     }

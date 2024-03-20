@@ -1,8 +1,8 @@
 export class Course {
-    id?: string;
+    id?: number;
     title: string;
     shortDescription: string;
-    idAuthor?: string;
+    idAuthor?: number;
     totalStudentRegister?: number;
     totalChapter?: number;
     duration?: string;

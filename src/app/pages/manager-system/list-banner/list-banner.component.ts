@@ -32,7 +32,7 @@ export class ListBannerComponent {
   bannerList: Banner[] = [];
   publicId: string;
   pictureUrl: string;
-  idCategory: string;
+  idCategory: number;
   isActive: boolean = true;
 
   @ViewChild('addCategory', { static: false }) addCategory?: ModalDirective;
@@ -203,7 +203,7 @@ export class ListBannerComponent {
     modalButton.innerHTML = 'Lưu';
   }
 
-  editCategory(id: string) {
+  editCategory(id: number) {
     this.idCategory = id;
     this.addCategory?.show();
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement
