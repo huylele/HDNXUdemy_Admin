@@ -43,8 +43,8 @@ export class CreateCourseDetailsComponent {
   contentCourseForm!: UntypedFormGroup;
   contentDetailsCourseForm!: UntypedFormGroup;
   dataInsertContent: CourseContent;
-  idCourse: number;
-  idContent: number;
+  idCourse: string;
+  idContent: string;
   isShowEditContent: boolean = false;
   uploadedVideoFile: ReturnUploadFile;
   fileLoadUpload: File;
@@ -99,7 +99,7 @@ export class CreateCourseDetailsComponent {
   isArtplayerInitialized = false;
   contentCourseDetail: CourseContentDetails;
   contentName: string;
-  activeItemIndex: number | null = null;
+  activeItemIndex: string | null = null;
 
 
 
@@ -124,7 +124,7 @@ export class CreateCourseDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
+    this.idCourse = this.routers.snapshot.paramMap.get('idCourse');
     this.breadCrumbItems = [
       { label: 'Khoá học', active: true },
       { label: 'Nội dung khoá học', active: true }
@@ -146,7 +146,7 @@ export class CreateCourseDetailsComponent {
 
   }
 
-  loadDataContentOfCourse(idCourse: number) {
+  loadDataContentOfCourse(idCourse: string) {
     this.isLoading = true;
     this.courseServices.getListContentCourse(idCourse).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == '') {
@@ -201,7 +201,7 @@ export class CreateCourseDetailsComponent {
   public Editor = ClassicEditor;
   public items = ['Beginner', 'Advanced', 'Intermediate', 'Expert'];
   uploadedFiles: any[] = [];
-  
+
   // File Remove
   removeFile() {
     this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
@@ -227,12 +227,10 @@ export class CreateCourseDetailsComponent {
     if (this.contentCourseForm.valid) {
       let dataInsert: CourseContent =
       {
-        id: 0,
         name: this.contentCourseForm.value.contentCourse,
         idCourse: this.idCourse
       };
 
-      dataInsert.id = 0
       this.courseServices.createContentCourse(dataInsert).subscribe((res) => {
         if (res.retCode == 0 && res.systemMessage == "") {
           this.loadDataContentOfCourse(this.idCourse);
@@ -245,7 +243,7 @@ export class CreateCourseDetailsComponent {
     }
   }
 
-  addDetailForCourse(idContent: number) {
+  addDetailForCourse(idContent: string) {
     this.isShowEditContent = true;
     this.idContent = idContent;
     this.isReviewVideo = false;
@@ -255,7 +253,6 @@ export class CreateCourseDetailsComponent {
   saveContentCourseDetails() {
     this.isLoading = true;
     const dataInsert: CourseContentDetails = {
-      id: 0,
       idContent: this.idContent,
       nameSubContent: this.contentDetailsCourseForm.value.nameSubContent,
       timeOfContent: '',
@@ -281,7 +278,7 @@ export class CreateCourseDetailsComponent {
     }
   }
 
-  getDataOfContentDetails(id: number) {
+  getDataOfContentDetails(id: string) {
     this.isLoadingContent = true;
     this.isReviewVideo = true;
     this.isShowEditContent = true;
@@ -298,7 +295,7 @@ export class CreateCourseDetailsComponent {
     });
   }
 
-  clickHeaderOfList(idContent: number, contentName: string) {
+  clickHeaderOfList(idContent: string, contentName: string) {
     this.contentName = contentName;
     this.idContent = idContent;
   }
@@ -318,7 +315,7 @@ export class CreateCourseDetailsComponent {
     })
   }
 
-  onClickContentCourse(id: number) {
+  onClickContentCourse(id: string) {
     this.activeItemIndex = id;
   }
 }

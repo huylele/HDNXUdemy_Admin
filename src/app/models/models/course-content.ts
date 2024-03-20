@@ -1,12 +1,12 @@
 export class CourseContent {
-    id: number;
+    id?: string;
     name: string;
-    idCourse: number;
+    idCourse: string;
 }
 
 export class CourseContentDetails {
-    id: number;
-    idContent: number;
+    id?: string;
+    idContent: string;
     nameSubContent: string;
     timeOfContent: string;
     isLearningFree : boolean;

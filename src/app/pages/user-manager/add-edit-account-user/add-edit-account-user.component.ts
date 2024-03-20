@@ -122,7 +122,6 @@ export class AddEditAccountUserComponent implements OnInit {
     this.isLoading = true;
     if (this.informationForm.valid) {
       const dataInsert: StudentUser = {
-        id: 0,
         name: this.informationForm.value.name,
         email: this.informationForm.value.email,
         password: '',

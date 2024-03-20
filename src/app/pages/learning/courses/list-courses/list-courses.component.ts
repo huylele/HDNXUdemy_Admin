@@ -241,11 +241,11 @@ export class ListCourseComponent {
     this.router.navigate(['/learning/courses/create-course']);
   }
 
-  editCourse(id: number) {
+  editCourse(id: string) {
     this.router.navigate([`/learning/courses/edit-course/${id}`]);
   }
 
-  goToOverview(id : number){
+  goToOverview(id : string){
     this.router.navigate([`/learning/courses/course-overview/${id}`]);
   }
 

@@ -32,7 +32,7 @@ export class ListBannerComponent {
   bannerList: Banner[] = [];
   publicId: string;
   pictureUrl: string;
-  idCategory: number;
+  idCategory: string;
   isActive: boolean = true;
 
   @ViewChild('addCategory', { static: false }) addCategory?: ModalDirective;
@@ -139,7 +139,6 @@ export class ListBannerComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.bannerService.createBanner(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataCategory();
@@ -204,7 +203,7 @@ export class ListBannerComponent {
     modalButton.innerHTML = 'Lưu';
   }
 
-  editCategory(id: number) {
+  editCategory(id: string) {
     this.idCategory = id;
     this.addCategory?.show();
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement

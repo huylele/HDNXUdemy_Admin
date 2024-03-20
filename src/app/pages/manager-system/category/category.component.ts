@@ -30,7 +30,7 @@ export class CategoryComponent {
   categorieslist: CategoryModel[] = [];
   publicId: string;
   pictureUrl: string;
-  idCategory: number;
+  idCategory: string;
 
   @ViewChild('addCategory', { static: false }) addCategory?: ModalDirective;
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
@@ -132,7 +132,6 @@ export class CategoryComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.categoryService.createCategories(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataCategory();
@@ -197,7 +196,7 @@ export class CategoryComponent {
     modalButton.innerHTML = 'Lưu';
   }
 
-  editCategory(id: number) {
+  editCategory(id: string) {
     this.idCategory = id;
     this.addCategory?.show();
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement

@@ -17,7 +17,7 @@
   },
   "Course": {
     "CreateCourse": "master-course/course",
-    "UpdateStatusCourse": "master-course/course/status/{0}",
+    "UpdateStatusCourse": "master-course/course/status/{0}/{1}/{2}",
     "UpdateInformationCourse": "master-course/course/{0}",
     "GetListAllCourse": "master-course/course",
     "GetCourses": "master-course/course/{0}/{1}",

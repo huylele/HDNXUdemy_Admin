@@ -1,10 +1,10 @@
 import { Course } from "./course";
 
 export class PurchaseDetailsModel {
-    idCourse : number;
-    idStudent?: number;
+    idCourse : string;
+    idStudent?: string;
     priceOfCourse: number;
     priceOfDiscount: number;
-    idPurchaseOrder?: number;
+    idPurchaseOrder?: string;
     courses?: Course;
 }

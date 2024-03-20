@@ -1,9 +1,9 @@
 import { StudentUser } from "./student-user";
 
 export class CourseEvaluation {
-    id? : number;
-    idStudent: number;
-    idCourse: number;
+    id? : string;
+    idStudent: string;
+    idCourse: string;
     voteStartNumber: number;
     commentEvaluation: string;
     like?: number;

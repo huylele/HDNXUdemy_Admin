@@ -169,7 +169,6 @@ export class CreateCourseComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         dataInsert.processCourse = 0;
         this.courseServices.createCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {

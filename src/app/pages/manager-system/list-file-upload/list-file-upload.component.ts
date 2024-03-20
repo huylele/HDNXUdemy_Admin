@@ -37,7 +37,7 @@ export class ListFileUploadComponent {
   fileUpload!: UntypedFormGroup;
   fileManagerUpload: FilemanagerModel;
   resultUpload: ReturnUploadFile;
-  idFileUpload: number;
+  idFileUpload: string;
 
   @ViewChild('uploadFile', { static: false }) uploadFile?: ModalDirective;
   constructor(
@@ -122,7 +122,6 @@ export class ListFileUploadComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.uploadFileToCloudServices.createFileSoftware(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataOfSoftware();
@@ -215,7 +214,7 @@ export class ListFileUploadComponent {
     this.fileSoftwares = this.listFileSoftwares.slice(startItem, this.endItem);
   }
 
-  editFileUpload(id: number) {
+  editFileUpload(id: string) {
     this.uploadedFiles = [];
     this.idFileUpload = id;
     this.uploadFile?.show();

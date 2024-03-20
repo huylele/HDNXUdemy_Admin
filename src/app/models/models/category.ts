@@ -1,5 +1,5 @@
 export class CategoryModel {
-    id?: number | null | undefined;
+    id?: string | null | undefined;
     name: string | null | undefined;
     pictureUrl: string | null | undefined;
     publicId: string | null | undefined;

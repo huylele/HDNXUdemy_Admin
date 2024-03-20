@@ -1,5 +1,5 @@
 export class Banner {
-    id: number;
+    id: string;
     urlPicture: string;
     contentBanner: string;
     publicId: string;

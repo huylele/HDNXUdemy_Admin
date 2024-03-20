@@ -1,5 +1,5 @@
 export class BookMarkCourse {
-    id?: number;
+    id?: string;
     idStudent: number;
     idCourse : number;
 }

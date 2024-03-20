@@ -2,14 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { cloneDeep } from 'lodash';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { Options } from 'ngx-slider-v2';
 import { StudentServices } from 'src/app/core/services/student.service';
 import { StudentUser } from 'src/app/models/models/student-user';
-import { addinstructorlistData, deleteinstructorlistData, fetchinstructorListData, updateinstructorlistData } from 'src/app/store/Learning-instructor/instructor.action';
-import { selectListData } from 'src/app/store/Learning-instructor/instructor.selector';
+import { addinstructorlistData, deleteinstructorlistData, updateinstructorlistData } from 'src/app/store/Learning-instructor/instructor.action';
 
 @Component({
   selector: 'app-list-student',
@@ -520,7 +518,7 @@ export class ListStudentComponent implements OnInit {
     });
   }
 
-  addEditStudent(id: number) {
+  addEditStudent(id: string) {
     this.router.navigate([`/learning/student/add-edit-student/${id}`]);
   }
 }

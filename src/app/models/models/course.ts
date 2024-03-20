@@ -1,8 +1,8 @@
 export class Course {
-    id: number;
+    id?: string;
     title: string;
     shortDescription: string;
-    idAuthor?: number;
+    idAuthor?: string;
     totalStudentRegister?: number;
     totalChapter?: number;
     duration?: string;
@@ -12,7 +12,7 @@ export class Course {
     isFree: boolean;
     typeOfCourse?: string;
     introduce: string;
-    idCategory: number;
+    idCategory?: string;
     levelCourse: string;
     languages: string;
     description: string;
@@ -26,4 +26,5 @@ export class Course {
     processCourseName?: string;
     processCourse?: number;
     amountOfTheCourse?: number;
+    status?: number;
 }

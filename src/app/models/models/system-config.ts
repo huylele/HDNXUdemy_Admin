@@ -1,5 +1,5 @@
 export class SystemConfig {
-    id: number;
+    id: string;
     keyConfig: string;
     value: string;
 }

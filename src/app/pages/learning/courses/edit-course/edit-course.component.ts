@@ -24,12 +24,10 @@ export class EditCourseComponent {
   filesPicture: File;
   filesVideo: File;
   courseInsertData: Course ={
-    id: 0,
     title: '',
     shortDescription: '',
     isFree: false,
     introduce: '',
-    idCategory: 0,
     levelCourse: '',
     languages: '',
     description: '',
@@ -80,7 +78,7 @@ export class EditCourseComponent {
       description: [],
     });
     this.loadDataCategory();
-    this.loadDataOfCourse(Number(id) ?? 0);
+    this.loadDataOfCourse(id);
 
     this.courseForm.controls['idCategory'].valueChanges.subscribe((value) => {
       this.nameCategory = this.categories.find(x => x.id == value)?.name ?? '';
@@ -149,7 +147,7 @@ export class EditCourseComponent {
 
   public items = ['Bắt đầu', 'Trung bình', 'Cấp cao', 'Chuyên gia']
 
-  addDetailsForCourse(id: number) {
+  addDetailsForCourse(id: string) {
     this.router.navigate([`/learning/courses/create-course-details/${id}`]);
   }
 
@@ -188,7 +186,6 @@ export class EditCourseComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         dataInsert.processCourse = 0;
         this.courseServices.createCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
@@ -216,7 +213,7 @@ export class EditCourseComponent {
     return false;
   }
 
-  loadDataOfCourse(id: number) {
+  loadDataOfCourse(id: string) {
     this.uploadedPictureFiles = [];
     this.isLoading = true;
     this.courseServices.getCourses(id).subscribe((res) => {
