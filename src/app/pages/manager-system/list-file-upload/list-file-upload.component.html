@@ -40,7 +40,7 @@
 
                 <div id="contactList" class="mt-2">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <h6 class="card-title flex-grow-1 mb-0">File Upload Hệ Thống</h6>
+                        <h6 class="card-title flex-grow-1 mb-0">File upload to systems</h6>
                         <div dropdown class="dropdown card-header-dropdown sortble-dropdown flex-shrink-0">
                             <a dropdownToggle class="text-reset dropdown-btn" href="javascript:void(0);">
                                 <span class="fw-semibold text-uppercase fs-xs">Sort by:
@@ -58,10 +58,10 @@
                             <thead class="text-muted table-light">
                                 <tr>
                                     <th scope="col" class="sort cursor-pointer" filesortable="icon" (click)="onSort('icon')">Type</th>
-                                    <th scope="col" class="sort cursor-pointer" filesortable="title" (click)="onSort('title')">Tên file</th>
+                                    <th scope="col" class="sort cursor-pointer" filesortable="title" (click)="onSort('title')">Name file</th>
                                     <th scope="col" class="sort cursor-pointer" filesortable="item" (click)="onSort('item')">File Id</th>
                                     <th scope="col" class="sort cursor-pointer" filesortable="mb" (click)="onSort('mb')">Size</th>
-                                    <th scope="col" class="sort cursor-pointer">Hành động</th>
+                                    <th scope="col" class="sort cursor-pointer">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="list" id="file-list">
@@ -118,7 +118,7 @@
 
 <div id="elmLoader">
     <div class="spinner-border text-primary avatar-sm" role="status">
-        <span class="visually-hidden">Tìm kiếm...</span>
+        <span class="visually-hidden">Search...</span>
     </div>
 </div>
 
@@ -141,7 +141,7 @@
                     <input type="hidden" id="discount-field">
 
                     <div class="mb-3">
-                        <label for="product-title-input" class="form-label">Tên file upload</label>
+                        <label for="product-title-input" class="form-label">Name of file upload</label>
                         <input type="text" id="product-title-input" class="form-control" placeholder="Enter product title" required formControlName="actualNameFile">
                     </div>
 
@@ -188,7 +188,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-category-input" class="form-label">Danh sách loại tài liệu</label>
+                        <label for="product-category-input" class="form-label">List of document</label>
 
                         <select class="form-select" id="product-category-input" formControlName="fileType">
                             <option *ngFor="let fileTypeUpload of fileTypeUploads" [value]="fileTypeUpload.idTypeFile">{{fileTypeUpload.nameTypeFileType}}</option>
@@ -196,7 +196,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-category-input" class="form-label">Danh sách loại tài liệu của file</label>
+                        <label for="product-category-input" class="form-label">List of type for file</label>
 
                         <select class="form-select" id="product-category-input" formControlName="extendFile">
                             <option *ngFor="let fileTypeUpload of fileOfTypeUploads" [value] ="fileTypeUpload.idTypeFile">{{fileTypeUpload.nameOfFileType}}</option>
@@ -205,13 +205,13 @@
 
                     <div class="form-check form-switch hstack gap-2 justify-content-end pt-2">
                         <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1" formControlName="isFree">
-                        <label class="form-check-label" for="SwitchCheck1">Miễn phí</label>
+                        <label class="form-check-label" for="SwitchCheck1">Is Free</label>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-ghost-danger" (click)="uploadFile.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Đóng</button>
-                        <button type="submit" class="btn btn-primary" id="add-btn">Tạo file</button>
+                        <button type="button" class="btn btn-ghost-danger" (click)="uploadFile.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="submit" class="btn btn-primary" id="add-btn">Create file</button>
                     </div>
                 </div>
             </form>

@@ -112,7 +112,7 @@ if (environment.defaultauth === 'firebase') {
     AngularFireAuthModule,
   ],
   providers: [
-    {provide: DEFAULT_CURRENCY_CODE, useValue: 'VND'},
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: fakebackendInterceptor, multi: true }, TransferHttp

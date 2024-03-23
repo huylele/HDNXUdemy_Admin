@@ -5,7 +5,7 @@
 <div class="row align-items-center mb-4 g-2">
     <div class="col-lg-3 col-md-4 me-auto">
         <div class="search-box">
-            <input type="text" class="form-control search" placeholder="Tìm kiếm theo tên banner..." [(ngModel)]="term" (keyup)="filterdata()">
+            <input type="text" class="form-control search" placeholder="Search with banner..." [(ngModel)]="term" (keyup)="filterdata()">
             <i class="ri-search-line search-icon"></i>
         </div>
     </div><!--end col-->
@@ -20,9 +20,9 @@
             <tr>
                 <th scope="col" class="sort cursor-pointer">Id</th>
                 <th scope="col" class="sort cursor-pointer">Link Adds</th>
-                <th scope="col" class="sort cursor-pointer">Nội dung</th>
-                <th scope="col" class="sort cursor-pointer">Trạng thái</th>
-                <th scope="col" class="sort cursor-pointer">Hành động</th>
+                <th scope="col" class="sort cursor-pointer">Content</th>
+                <th scope="col" class="sort cursor-pointer">Status</th>
+                <th scope="col" class="sort cursor-pointer">Action</th>
             </tr>
         </thead>
         <tbody class="list" id="file-list">
@@ -73,21 +73,21 @@
 <div class="noresult" style="display: none;">
     <div class="text-center py-4">
         <i class="ph-magnifying-glass fs-1 text-primary"></i>
-        <h5 class="mt-2">Xin lỗi! Không tìm thấy kết quả nào</h5>
-        <p class="text-muted mb-0">Chúng tôi không tìm thấy khoá học nào theo thông tin của bạn.</p>
+        <h5 class="mt-2">Sorry! Not found the data</h5>
+        <p class="text-muted mb-0">We couldn't find any courses based on your information.</p>
     </div>
 </div>
 
 <div id="elmLoader">
     <div class="spinner-border text-primary avatar-sm" role="status">
-        <span class="visually-hidden">Tìm kiếm...</span>
+        <span class="visually-hidden">Search...</span>
     </div>
 </div>
 
 <div class="row align-items-center mb-3" id="pagination-element">
     <div class="col-sm">
         <div class="text-muted text-center text-sm-start">
-            Hiển thị <span class="fw-semibold">{{banner?.length}}</span> of <span class="fw-semibold">{{bannerList?.length}}</span> Kết quả
+            Display <span class="fw-semibold">{{banner?.length}}</span> of <span class="fw-semibold">{{bannerList?.length}}</span> result
         </div>
     </div><!--end col-->
     <div class="col-sm-auto mt-3 mt-sm-0">
@@ -99,7 +99,7 @@
     <div class="modal-dialog">
         <div class="modal-content border-0">
             <div class="modal-header bg-secondary p-3">
-                <h5 class="modal-title text-white" id="addCategoryLabel">Thêm Loại Khoá Học</h5>
+                <h5 class="modal-title text-white" id="addCategoryLabel">Add Banner</h5>
                 <button type="button" class="btn-close btn-close-white" (click)="addCategory.hide()"></button>
             </div>
 
@@ -108,7 +108,7 @@
                     <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
 
                     <div class="mb-3">
-                        <label class="form-label">Hình ảnh banner<span class="text-danger">*</span></label>
+                        <label class="form-label">Picture of banner<span class="text-danger">*</span></label>
                         <dropzone class="dropzone" [config]="dropzoneConfig" [message]="'Thả hình ảnh hoặc chọn hình ảnh.'" (success)="onUploadSuccess($event)" (removedFile)="removeFile($event)">
                             <!-- <img *ngIf="pictureUrl" [src]="pictureUrl" alt="Default Image" class="default-image"> -->
                         </dropzone>
@@ -142,22 +142,22 @@
 
                         <div class="form-check form-switch hstack gap-2 justify-content-end pt-2">
                             <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck1" formControlName="isActive">
-                            <label class="form-check-label" for="SwitchCheck1">Hoạt động</label>
+                            <label class="form-check-label" for="SwitchCheck1">Action</label>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="category-title-input" class="form-label">Link quảng cáo<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="address-input" rows="3" placeholder="Nhập link quảng cáo" formControlName="link" required>
+                        <label for="category-title-input" class="form-label">Link for Advertisement<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="address-input" rows="3" placeholder="Input the link for advertisement" formControlName="link" required>
                     </div>
                     <div class="mb-3">
-                        <label for="category-title-input" class="form-label">Nội dung banner<span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="address-input" rows="3" placeholder="Nhập thông tin hiển thị trên banner" formControlName="contentBanner" required></textarea>
+                        <label for="category-title-input" class="form-label">Content banner<span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="address-input" rows="3" placeholder="Input content for banner" formControlName="contentBanner" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-info" (click)="addCategory.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Đóng</button>
-                        <button type="submit" class="btn btn-primary" id="add-btn">Thêm loại banner</button>
+                        <button type="button" class="btn btn-info" (click)="addCategory.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="submit" class="btn btn-primary" id="add-btn">Add banner</button>
                     </div>
                 </div>
             </form>
@@ -179,13 +179,13 @@
                         <i class="bi bi-trash display-5"></i>
                     </div>
                     <div class="mt-4">
-                        <h4 class="mb-2">Bạn có chắc chắn chưa ?</h4>
-                        <p class="text-muted mx-3 mb-0">Bạn có chắc muốn xoá dòng này? vì xoá thì sẽ không khôi phục được ?</p>
+                        <h4 class="mb-2">Are you sure ?</h4>
+                        <p class="text-muted mx-3 mb-0">Are you sure you want to delete ? You won't be able to revert this ?</p>
                     </div>
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
-                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteRecordModal.hide()">Đóng</button>
-                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, đồng ý</button>
+                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteRecordModal.hide()">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record">Yes, Agree!</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->

@@ -57,8 +57,8 @@ export class ListLearningWithTeacherComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true },
-      { label: 'Danh sách khoá học', active: true }
+      { label: 'Course', active: true },
+      { label: 'List of Courses', active: true }
     ];
 
     // Fetch Data

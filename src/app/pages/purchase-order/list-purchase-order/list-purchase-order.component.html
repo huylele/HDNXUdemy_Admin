@@ -33,12 +33,12 @@
             <div class="card-body">
                 <div class="d-flex mb-4 pb-1">
                     <div class="flex-grow-1">
-                        <h6 class="card-title">Tổng đơn hàng hệ thống <i class="bi bi-exclamation-circle align-baseline ms-1 fs-sm" tooltip="Tổng đơn hàng trên hệ thống tính đến thời điểm hiện tại"></i>
+                        <h6 class="card-title">Total of purchase on the system <i class="bi bi-exclamation-circle align-baseline ms-1 fs-sm" tooltip="Total of purchase on the system"></i>
                         </h6>
-                        <p class="text-muted mb-0"><b>$985.32k</b> Tổng đơn hàng chưa trả trên hệ thống</p>
+                        <p class="text-muted mb-0"><b>$985.32k</b> Total purchase not yet paid on the system</p>
                     </div>
                     <div class="flex-shrink-0">
-                        <a routerLink="/ecommerce/seller-overview" class="link-effect">Xem chi tiết theo khoá học <i class="bi bi-arrow-right align-baseline ms-1"></i></a>
+                        <a routerLink="/ecommerce/seller-overview" class="link-effect">View details as the course <i class="bi bi-arrow-right align-baseline ms-1"></i></a>
                     </div>
                 </div>
                 <div tooltip="$234.95 Paid Amount">
@@ -55,18 +55,18 @@
             <div class="card-header">
                 <div class="row align-items-center g-2">
                     <div class="col-lg-3 me-auto">
-                        <h6 class="card-title mb-0">Danh sách đơn hàng</h6>
+                        <h6 class="card-title mb-0">List of Purchase Order</h6>
                     </div><!--end col-->
                     <div class="col-xl-2 col-md-3">
                         <div class="search-box">
-                            <input type="text" class="form-control search" placeholder="Tìm kiếm đơn hàng, theo tên, địa chỉ email..." [(ngModel)]="term" (keyup)="filterdata()">
+                            <input type="text" class="form-control search" placeholder="Search purchase order...!" [(ngModel)]="term" (keyup)="filterdata()">
                             <i class="ri-search-line search-icon"></i>
                         </div>
                     </div><!--end col-->
                     <div class="col-md-auto">
                         <div class="hstack gap-2">
                             <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteRecordModal.show()"><i class="ri-delete-bin-2-line"></i></button>
-                            <a routerLink="/invoices/create" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Invoice</a>
+                            <a routerLink="/invoices/create" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Purchase</a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -83,12 +83,12 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('invoice_no')">Id</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('customer')">Tên học viên</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('customer')">Name Student</th>
                                 <th scope="col" class="sort cursor-pointer" (click)="onSort('email')">Email</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('createDate')">Ngày mua</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('dueDate')">Ngày hoàn thành</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('invoice_amount')">Giá tiền</th>
-                                <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Trạng thái</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('createDate')">Create Date</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('dueDate')">Purchase Date</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('invoice_amount')">Amount</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('status')">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>

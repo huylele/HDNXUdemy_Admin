@@ -126,8 +126,8 @@ export class CreateCourseDetailsComponent {
   ngOnInit(): void {
     this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true },
-      { label: 'Nội dung khoá học', active: true }
+      { label: 'Course', active: true },
+      { label: 'Content of course', active: true }
     ];
 
 

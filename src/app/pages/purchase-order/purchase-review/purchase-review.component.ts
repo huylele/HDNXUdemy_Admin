@@ -23,8 +23,8 @@ export class PurchaseOrderReviewComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Danh sách đơn hàng', active: true },
-      { label: 'Xem hoá chi tiết đơn hàng', active: true }
+      { label: 'List of Purchase', active: true },
+      { label: 'Detail Purchase Overview', active: true }
     ];
 
     this.idPurchaseOrder = Number(this.routers.snapshot.paramMap.get('id'));

@@ -13,14 +13,14 @@ import { cloneDeep } from 'lodash';
 import { assignesTickets } from 'src/app/core/data';
 
 @Component({
-  selector: 'app-list-subscriptions',
-  templateUrl: './list-subscriptions.component.html',
-  styleUrls: ['./list-subscriptions.component.scss'],
+  selector: 'app-list-promotion',
+  templateUrl: './list-promotion.component.html',
+  styleUrls: ['./list-promotion.component.scss'],
   providers: [DecimalPipe]
 })
 
 // List component
-export class ListSubscriptionsComponent {
+export class ListPromotionsComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
@@ -40,7 +40,7 @@ export class ListSubscriptionsComponent {
   editData: any;
   alltickets: any;
 
-  constructor(private formBuilder: UntypedFormBuilder, public store: Store,public datepipe:DatePipe) {
+  constructor(private formBuilder: UntypedFormBuilder, public store: Store, public datepipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -103,7 +103,7 @@ export class ListSubscriptionsComponent {
     } else {
       this.assignList[id].checked = '0'
     }
-   
+
     this.assignto = [];
     this.assignList.forEach((element: any) => {
       if (element.checked == '1') {
@@ -117,16 +117,16 @@ export class ListSubscriptionsComponent {
     this.submitted = true
     if (this.ListForm.valid) {
       if (this.ListForm.get('id')?.value) {
-        const updatedData = {assignedto:this.assignto,...this.ListForm.value};
+        const updatedData = { assignedto: this.assignto, ...this.ListForm.value };
         this.store.dispatch(updateticketlistData({ updatedData }));
       }
       else {
         this.ListForm.controls['id'].setValue((this.alltickets.length + 1).toString());
         const createDate = this.datepipe.transform(this.ListForm.get('createDate')?.value, "dd MMM, yyyy") || ''
         const dueDate = this.datepipe.transform(this.ListForm.get('dueDate')?.value, "dd MMM, yyyy") || ''
-        this.ListForm.patchValue({ createDate: createDate,dueDate:dueDate });
+        this.ListForm.patchValue({ createDate: createDate, dueDate: dueDate });
 
-        const newData = {assignedto:this.assignto,...this.ListForm.value} 
+        const newData = { assignedto: this.assignto, ...this.ListForm.value }
         this.store.dispatch(addticketlistData({ newData }));
       }
       this.assignto = [];

@@ -39,7 +39,7 @@ export class ListPurchaseOrderComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Danh sách đơn hàng', active: true }
+      { label: 'List of Purchase', active: true }
     ];
 
     this.store.dispatch(fetchInvoiceData());

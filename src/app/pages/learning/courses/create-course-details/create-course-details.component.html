@@ -8,10 +8,10 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <h5 class="card-title mb-0">Danh sách khoá học</h5>
+                        <h5 class="card-title mb-0">List of courses</h5>
                     </div>
                     <div class="flex-shrink-0">
-                        <a href="javascript:void(0);" (click)="addContentCourse()" class="text-reset text-decoration-underline">Thêm chương khoá học</a>
+                        <a href="javascript:void(0);" (click)="addContentCourse()" class="text-reset text-decoration-underline">Add Chapter</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -61,16 +61,16 @@
         <div class="card">
 
             <div class="card-header">
-                <h5 class="card-title mb-3">Thông tin khoá học</h5>
+                <h5 class="card-title mb-3">Infomation of course</h5>
                 <div class="col-lg-12">
                     <div class="mb-3">
-                        <label for="Property-title-input" class="form-label">Tên chuong <span class="text-danger">*</span></label>
+                        <label for="Property-title-input" class="form-label">Name chapter <span class="text-danger">*</span></label>
                         <div class="row">
                             <div class="col-lg-11">
                                 <input type="text" id="Property-title-input" class="form-control" placeholder="Nhập tên chương khoá học" [(ngModel)]="contentName" required>
                             </div>
                             <div class="col-lg-1">
-                                <button type="button" (click)="updateContentCourse()" class="btn btn-primary w-100"><i class="bi bi-clipboard2-check align-baseline me-1"></i> Lưu</button>
+                                <button type="button" (click)="updateContentCourse()" class="btn btn-primary w-100"><i class="bi bi-clipboard2-check align-baseline me-1"></i> Save</button>
                             </div>
 
                         </div>
@@ -85,7 +85,7 @@
                 <app-hdnx-loading [show]="isLoadingContent">
                     <form [formGroup]="contentDetailsCourseForm" (submit)="saveContentCourseDetails()">
                         <div class="mb-3">
-                            <label class="form-label">Video content khoá học<span class="text-danger">*</span></label>
+                            <label class="form-label">Video content of course<span class="text-danger">*</span></label>
                             <div class="ratio ratio-16x9 mb-3" [hidden]="!isReviewVideo">
                                 <div #artplayerCreateCourseDetails></div>
                             </div>
@@ -106,7 +106,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
-                                            <button type="button" (click)="removeFile()" class="btn btn-sm btn-danger">Xoá học Sửa Video</button>
+                                            <button type="button" (click)="removeFile()" class="btn btn-sm btn-danger">Edit of video</button>
                                         </div>
                                     </div>
                                 </div>
@@ -117,20 +117,20 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="Property-title-input" class="form-label">Tiêu đề <span class="text-danger">*</span></label>
+                                    <label for="Property-title-input" class="form-label">Title <span class="text-danger">*</span></label>
                                     <input type="text" id="Property-title-input" class="form-control" placeholder="Nhập tiêu đề" required formControlName="nameSubContent">
                                 </div>
                             </div><!--end col-->
                             <div class="col-lg-4">
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="additionalFeatures" formControlName="isLearningFree">
-                                    <label class="form-check-label" for="additionalFeatures">Xem preview</label>
+                                    <label class="form-check-label" for="additionalFeatures">Preview Video</label>
                                 </div>
                             </div><!--end col-->
                             <div class="col-lg-12">
                                 <div class="hstack gap-2 justify-content-end">
-                                    <button type="button" class="btn btn-secondary"><i class="bi bi-repeat align-baseline me-1"></i> Nhập lại</button>
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-clipboard2-check align-baseline me-1"></i> Lưu</button>
+                                    <button type="button" class="btn btn-secondary"><i class="bi bi-repeat align-baseline me-1"></i> Reset</button>
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-clipboard2-check align-baseline me-1"></i> Save</button>
                                 </div>
                             </div>
                         </div><!--end row-->
@@ -150,7 +150,7 @@
                         <i class="bi bi-search"></i>
                     </div>
                 </div>
-                <h5>Không tìm thấy thông tin cho sự lựa chọn</h5>
+                <h5>Not found anything</h5>
             </div>
         </div>
     </div>
@@ -163,20 +163,20 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header bg-secondary p-3">
-                <h5 class="modal-title text-white" id="addCategoryLabel">Thêm chương bài học</h5>
+                <h5 class="modal-title text-white" id="addCategoryLabel">Add more the chapter</h5>
                 <button type="button" class="btn-close" id="deleteRecord-close" (click)="addContentCourseModal.hide()"></button>
             </div>
             <form (submit)="saveContentCourse()" class="tablelist-form" novalidate autocomplete="off" [formGroup]="contentCourseForm">
                 <div class="modal-body p-md-5">
                     <div class="mb-3">
-                        <label for="category-title-input" class="form-label">Tên chương<span class="text-danger">*</span></label>
+                        <label for="category-title-input" class="form-label">Name chapter<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="address-input" rows="3" placeholder="Nhập chương khoá học" formControlName="contentCourse" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                        <button type="button" class="btn w-sm btn-light btn-hover" (click)="addContentCourseModal.hide()">Đóng</button>
-                        <button type="submit" class="btn w-sm btn-danger btn-hover" id="delete-record">Tạo</button>
+                        <button type="button" class="btn w-sm btn-light btn-hover" (click)="addContentCourseModal.hide()">Close</button>
+                        <button type="submit" class="btn w-sm btn-danger btn-hover" id="delete-record">Create</button>
                     </div>
                 </div>
             </form>

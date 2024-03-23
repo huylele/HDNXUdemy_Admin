@@ -49,8 +49,8 @@ export class ListBannerComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Quản lý hệ thống', active: true },
-      { label: 'Danh sách banner', active: true }
+      { label: 'Manager System', active: true },
+      { label: 'List of Banner', active: true }
     ];
 
     /**
