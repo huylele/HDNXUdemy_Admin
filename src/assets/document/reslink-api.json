@@ -93,5 +93,13 @@
     "IsCheckCoursePurchase": "purchase-course/check-purchase-course/{0}",
     "GetListPurcharseCourses": "purchase-course/get-list-purchase-course/{0}/{1}",
     "GetPurchaseCorseDetail" : "purchase-course/get-detail-purchase-course/{0}"
+  },
+  "CouponPromotion" : {
+    "GetListCouponActiveOnSystem": "promotion/coupon-promotion-code/{0}/{1}",
+    "CreatePromotionCoupon": "promotion/coupon-promotion",
+    "UpdatePromotionCoupon": "promotion/coupon-promotion",
+    "DeleteCouponForPromotion": "promotion/coupon-inactive/{0}",
+    "ActiveCouponPromotion": "promotion/active-coupon-promotion/{0}",
+    "GetListPromotions": "promotion/promotion-codes/{0}/{1}"
   }
 }

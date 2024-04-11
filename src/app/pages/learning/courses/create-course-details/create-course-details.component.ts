@@ -20,6 +20,7 @@ import { ReturnUploadFile } from 'src/app/models/respone_model/return-upload-fil
 import Hls from 'hls.js';
 import { type Option } from 'artplayer/types/option';
 import Artplayer from 'artplayer';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 
 @Component({
   selector: 'app-create-course-details',
@@ -266,7 +267,7 @@ export class CreateCourseDetailsComponent {
         if (res.retCode == 0 && res.systemMessage == "") {
           this.isLoading = false;
           this.loadDataContentOfCourse(this.idCourse);
-          this.messengerService.successes("Cập nhật thành công");
+          this.messengerService.successes(Messenger.createDataSuccessFull);
         } else {
           this.isLoading = false;
           this.loadDataContentOfCourse(this.idCourse);
@@ -307,7 +308,7 @@ export class CreateCourseDetailsComponent {
     this.courseServices.updateInformationContentCourse(getDataUpdate).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == "") {
         this.isLoading = false
-        this.messengerService.successes("Cập nhật thành công");
+        this.messengerService.successes(Messenger.updateSuccessFull);
       } else {
         this.isLoading = false
         this.messengerService.errorWithIssue();

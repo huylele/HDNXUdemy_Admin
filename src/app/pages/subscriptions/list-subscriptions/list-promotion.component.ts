@@ -11,6 +11,10 @@ import { selectData, selectlistData } from 'src/app/store/Tickets/ticket-selecto
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { cloneDeep } from 'lodash';
 import { assignesTickets } from 'src/app/core/data';
+import { StripeServices } from 'src/app/core/services/stripe.service';
+import { PromotionCodeModel } from 'src/app/models/models/promotion-code';
+import { PageResult } from 'src/app/models/models/repository_base';
+import { CouponModel } from 'src/app/models/models/coupon';
 
 @Component({
   selector: 'app-list-promotion',
@@ -24,23 +28,29 @@ export class ListPromotionsComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-  deleteID: any;
+  deleteId: string;
   endItem: any
-  ListForm!: UntypedFormGroup;
+  listForm!: UntypedFormGroup;
   submitted = false;
   masterSelected!: boolean;
   supportList: any;
-  tickets: any;
+  promotions: PageResult<PromotionCodeModel[]>;
   // assigndata: any
   assignList: any;
   term: any
-  @ViewChild('addTickets', { static: false }) addTickets?: ModalDirective;
+  @ViewChild('addPromotion', { static: false }) addPromotion?: ModalDirective;
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
   assignto: any = [];
   editData: any;
   alltickets: any;
+  isLoading = false;
+  coupons: PageResult<CouponModel[]>;
 
-  constructor(private formBuilder: UntypedFormBuilder, public store: Store, public datepipe: DatePipe) {
+  constructor(
+    private formBuilder: UntypedFormBuilder, 
+    public store: Store, 
+    public datepipe: DatePipe,
+    private readonly stripeServices : StripeServices) {
   }
 
   ngOnInit(): void {
@@ -48,52 +58,35 @@ export class ListPromotionsComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Support Tickets', active: true },
-      { label: 'List View', active: true }
+      { label: 'Home', active: true },
+      { label: 'List Promotions', active: true }
     ];
 
     /**
      * Form Validation
      */
-    this.ListForm = this.formBuilder.group({
+    this.listForm = this.formBuilder.group({
       id: [''],
-      clientName: ['', [Validators.required]],
-      ticketTitle: ['', [Validators.required]],
-      createDate: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      priority: ['', [Validators.required]],
+      promotionCode: ['', [Validators.required]],
+      idCoupon: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
       status: ['', [Validators.required]]
     });
-
-    this.store.dispatch(fetchsupporticketsData());
-    this.store.select(selectData).subscribe((data) => {
-      this.supportList = data;
-    });
-
-
-    setTimeout(() => {
-      this.store.dispatch(fetchticketlistData());
-      this.store.select(selectlistData).subscribe((data) => {
-        this.tickets = data;
-        this.alltickets = data;
-        this.tickets = cloneDeep(this.alltickets.slice(0, 10))
-      });
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1000)
-
     this.assignList = assignesTickets
+    this.loadDataOfPromotion(1, 10);
   }
 
   // Edit Data
   editList(id: any) {
-    this.addTickets?.show()
+    this.addPromotion?.show()
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement
-    modaltitle.innerHTML = 'Edit Product'
-    var modalbtn = document.getElementById('add-btn') as HTMLAreaElement
-    modalbtn.innerHTML = 'Update';
-    this.editData = this.tickets[id];
+    modaltitle.innerHTML = 'Edit Promotion Code'
+    var modalBtn = document.getElementById('add-btn') as HTMLAreaElement
+    modalBtn.innerHTML = 'Update';
+    this.editData = this.promotions[id];
     this.assignto = this.editData.assignedto;
-    this.ListForm.patchValue(this.tickets[id]);
+    this.listForm.patchValue(this.promotions[id]);
   }
 
   // Add Assigne
@@ -115,68 +108,38 @@ export class ListPromotionsComponent {
   // add Product
   saveList() {
     this.submitted = true
-    if (this.ListForm.valid) {
-      if (this.ListForm.get('id')?.value) {
-        const updatedData = { assignedto: this.assignto, ...this.ListForm.value };
+    if (this.listForm.valid) {
+      if (this.listForm.get('id')?.value) {
+        const updatedData = { assignedto: this.assignto, ...this.listForm.value };
         this.store.dispatch(updateticketlistData({ updatedData }));
       }
       else {
-        this.ListForm.controls['id'].setValue((this.alltickets.length + 1).toString());
-        const createDate = this.datepipe.transform(this.ListForm.get('createDate')?.value, "dd MMM, yyyy") || ''
-        const dueDate = this.datepipe.transform(this.ListForm.get('dueDate')?.value, "dd MMM, yyyy") || ''
-        this.ListForm.patchValue({ createDate: createDate, dueDate: dueDate });
+        this.listForm.controls['id'].setValue((this.alltickets.length + 1).toString());
+        const createDate = this.datepipe.transform(this.listForm.get('createDate')?.value, "dd MMM, yyyy") || ''
+        const dueDate = this.datepipe.transform(this.listForm.get('dueDate')?.value, "dd MMM, yyyy") || ''
+        this.listForm.patchValue({ createDate: createDate, dueDate: dueDate });
 
-        const newData = { assignedto: this.assignto, ...this.ListForm.value }
+        const newData = { assignedto: this.assignto, ...this.listForm.value }
         this.store.dispatch(addticketlistData({ newData }));
       }
       this.assignto = [];
-      this.ListForm.reset();
-      this.addTickets?.hide()
+      this.listForm.reset();
+      this.addPromotion?.hide()
     }
   }
 
   checkedValGet: any[] = [];
-  // The master checkbox will check/ uncheck all items
-  checkUncheckAll(ev: any) {
-    this.tickets = this.tickets.map((x: { states: any }) => ({ ...x, states: ev.target.checked }));
-    var checkedVal: any[] = [];
-    var result;
-    for (var i = 0; i < this.tickets.length; i++) {
-      if (this.tickets[i].states == true) {
-        result = this.tickets[i].id;
-        checkedVal.push(result);
-      }
-    }
-
-    this.checkedValGet = checkedVal;
-    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
-  }
-
-  // Select Checkbox value Get
-  onCheckboxChange(e: any) {
-    var checkedVal: any[] = [];
-    var result
-    for (var i = 0; i < this.tickets.length; i++) {
-      if (this.tickets[i].states == true) {
-        result = this.tickets[i].id;
-        checkedVal.push(result);
-      }
-    }
-    this.checkedValGet = checkedVal
-    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
-  }
-
 
   // Delete Product
-  removeItem(id: any) {
-    this.deleteID = id
+  removeItem(id: string) {
+    this.deleteId = id
     this.deleteRecordModal?.show()
   }
 
-  deleteData(id: any) {
+  deleteData(id: string) {
     this.deleteRecordModal?.hide();
     if (id) {
-      this.store.dispatch(deleteticketlistData({ id: this.deleteID.toString() }));
+      this.store.dispatch(deleteticketlistData({ id: this.deleteId.toString() }));
     }
     this.store.dispatch(deleteticketlistData({ id: this.checkedValGet.toString() }));
     this.deleteRecordModal?.hide();
@@ -190,12 +153,12 @@ export class ListPromotionsComponent {
     } else {
       this.direction = 'asc';
     }
-    const sortedArray = [...this.tickets]; // Create a new array
+    const sortedArray = [...this.promotions.results]; // Create a new array
     sortedArray.sort((a, b) => {
       const res = this.compare(a[column], b[column]);
       return this.direction === 'asc' ? res : -res;
     });
-    this.tickets = sortedArray;
+    this.promotions.results = sortedArray;
   }
   compare(v1: string | number, v2: string | number) {
     return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
@@ -205,9 +168,9 @@ export class ListPromotionsComponent {
   // filterdata
   filterdata() {
     if (this.term) {
-      this.tickets = this.alltickets.filter((es: any) => es.ticketTitle.toLowerCase().includes(this.term.toLowerCase()))
+      this.promotions = this.alltickets.filter((es: any) => es.ticketTitle.toLowerCase().includes(this.term.toLowerCase()))
     } else {
-      this.tickets = this.alltickets.slice(0, 10);
+      this.promotions = this.alltickets.slice(0, 10);
     }
     // noResultElement
     this.updateNoResultDisplay();
@@ -218,7 +181,7 @@ export class ListPromotionsComponent {
     const noResultElement = document.querySelector('.noresult') as HTMLElement;
     const paginationElement = document.getElementById('pagination-element') as HTMLElement;
 
-    if (this.term && this.tickets.length === 0) {
+    if (this.term && this.promotions.results.length === 0) {
       noResultElement.classList.remove('d-none')
       paginationElement.classList.add('d-none')
 
@@ -232,7 +195,31 @@ export class ListPromotionsComponent {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    this.tickets = this.alltickets.slice(startItem, this.endItem);
+    this.promotions = this.alltickets.slice(startItem, this.endItem);
+  }
+
+  loadDataOfPromotion(pageIndex: number, pageSize: number) {
+    this.isLoading = true;
+    this.stripeServices.getListPromotions(pageIndex, pageSize).subscribe((res) => {
+      if (res.systemMessage === '' && res.retCode === 0) {
+        this.isLoading = false;
+        this.promotions = res.data;
+      } else {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadDataOfCoupon(pageIndex: number, pageSize: number) {
+    this.isLoading = true;
+    this.stripeServices.getListCouponAndPromotion(pageIndex, pageSize).subscribe((res) => {
+      if (res.systemMessage === '' && res.retCode === 0) {
+        this.isLoading = false;
+        this.coupons = res.data;
+      } else {
+        this.isLoading = false;
+      }
+    });
   }
 }
 

@@ -1,5 +1,5 @@
 <!-- Start Breadcrumbs -->
-<app-breadcrumbs title="Chi tiết khoá học" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<app-breadcrumbs title="Overview Course" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
 <app-hdnx-loading [show]="isLoading">
@@ -36,27 +36,27 @@
                     <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0 mx-0" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'description'" (click)="changeTab('description')" role="tab" aria-selected="true">
-                                Chi tiết diễn giải khoá học
+                                Description of the course
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'videoTutorials'" (click)="changeTab('videoTutorials')" role="tab" aria-selected="false" tabindex="-1">
-                                Video khoá học
+                                Video of course
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'reviews'" (click)="changeTab('reviews')" role="tab" aria-selected="false" tabindex="-1">
-                                Đánh giá khoá học
+                                Review
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'faqs'" (click)="changeTab('faqs')" role="tab" aria-selected="false" tabindex="-1">
-                                Chính sách
+                                FAQ
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" href="javascript:void(0);" [class.active]="currentTab === 'fileAttachments'" (click)="changeTab('fileAttachments')" role="tab" aria-selected="false" tabindex="-1">
-                                Tài liệu (File bài học)
+                                Document (File Attachments)
                             </a>
                         </li>
                     </ul>
@@ -404,7 +404,7 @@
                         <li>
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <i class="ph ph-book-open align-middle me-1 text-primary-emphasis"></i> Số lượng bài
+                                    <i class="ph ph-book-open align-middle me-1 text-primary-emphasis"></i>Number of the chapter
                                 </div>
                                 <div class="flex-shrink-0 text-muted">
                                     {{courseAndDetailContent?.totalChapter}}
@@ -414,7 +414,7 @@
                         <li>
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <i class="ph ph-timer align-middle me-1 text-primary-emphasis"></i> Thời gian học
+                                    <i class="ph ph-timer align-middle me-1 text-primary-emphasis"></i>Time of course
                                 </div>
                                 <div class="flex-shrink-0 text-muted">
                                     {{courseAndDetailContent?.duration}}
@@ -434,7 +434,7 @@
                         <li>
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <i class="bi bi-card-heading align-baseline me-1 text-primary-emphasis"></i> Chứng chỉ
+                                    <i class="bi bi-card-heading align-baseline me-1 text-primary-emphasis"></i> Certificate
                                 </div>
                                 <div class="flex-shrink-0 text-muted">
                                     Yes
@@ -444,7 +444,7 @@
                         <li>
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <i class="bi bi-repeat-1 align-baseline me-1 text-primary-emphasis"></i> Trạng thái
+                                    <i class="bi bi-repeat-1 align-baseline me-1 text-primary-emphasis"></i> Status
                                 </div>
                                 <div class="flex-shrink-0 text-muted">
                                     <span class="badge" [ngClass]="{'bg-info-subtle text-info': courseAndDetailContent?.processCourseName === 'Open', 'bg-danger-subtle text-danger': courseAndDetailContent?.processCourseName === 'Close', 'bg-success-subtle text-info': courseAndDetailContent?.processCourseName === 'Public'}">{{courseAndDetailContent?.processCourseName}}</span>
