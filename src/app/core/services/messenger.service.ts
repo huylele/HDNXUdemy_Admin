@@ -24,7 +24,7 @@ export class MessengerServices {
 
   successes(messenger: string) {
     return Swal.fire({
-      title: 'Lưu dữ liệu!',
+      title: 'Infomation',
       text: `${messenger}`,
       icon: 'success',
       showCancelButton: false,
@@ -37,8 +37,8 @@ export class MessengerServices {
 
   errorWithIssue() {
     Swal.fire({
-      title: 'Lỗi hệ thống...',
-      text: 'Có vẻ có lỗi xảy ra, vui lòng liên hệ hoặc thử lại trong ít phút!',
+      title: 'Error of the system...',
+      text: 'Please try again',
       icon: 'error',
       confirmButtonColor: '#4b93ff',
       confirmButtonText: 'OK',
@@ -48,8 +48,8 @@ export class MessengerServices {
 
   warringWithIssue() {
     Swal.fire({
-      title: 'Lỗi nhập data',
-      text: 'Vui lòng nhập đầy đủ thông tin và gửi lại',
+      title: 'Error',
+      text: 'Please input and try again',
       icon: 'error',
       confirmButtonColor: '#4b93ff',
       confirmButtonText: 'OK',

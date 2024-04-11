@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <div class="search-box mb-3">
-                        <input type="text" class="form-control" id="searchResultList" placeholder="Tìm kiếm nội dụng khoá học..." [(ngModel)]="searchTerm" (ngModelChange)="performSearch()">
+                        <input type="text" class="form-control" id="searchResultList" placeholder="Search content of the course" [(ngModel)]="searchTerm" (ngModelChange)="performSearch()">
                         <i class="ri-search-line search-icon"></i>
                     </div>
                     <accordion class="accordion accordion-border-box  mt-3" [closeOthers]="true" id="accordionlefticon">
@@ -67,7 +67,7 @@
                         <label for="Property-title-input" class="form-label">Name chapter <span class="text-danger">*</span></label>
                         <div class="row">
                             <div class="col-lg-11">
-                                <input type="text" id="Property-title-input" class="form-control" placeholder="Nhập tên chương khoá học" [(ngModel)]="contentName" required>
+                                <input type="text" id="Property-title-input" class="form-control" placeholder="Input name of chapter" [(ngModel)]="contentName" required>
                             </div>
                             <div class="col-lg-1">
                                 <button type="button" (click)="updateContentCourse()" class="btn btn-primary w-100"><i class="bi bi-clipboard2-check align-baseline me-1"></i> Save</button>
@@ -118,7 +118,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="Property-title-input" class="form-label">Title <span class="text-danger">*</span></label>
-                                    <input type="text" id="Property-title-input" class="form-control" placeholder="Nhập tiêu đề" required formControlName="nameSubContent">
+                                    <input type="text" id="Property-title-input" class="form-control" placeholder="Input the title of content" required formControlName="nameSubContent">
                                 </div>
                             </div><!--end col-->
                             <div class="col-lg-4">
@@ -170,7 +170,7 @@
                 <div class="modal-body p-md-5">
                     <div class="mb-3">
                         <label for="category-title-input" class="form-label">Name chapter<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="address-input" rows="3" placeholder="Nhập chương khoá học" formControlName="contentCourse" required>
+                        <input type="text" class="form-control" id="address-input" rows="3" placeholder="Input name of the chapter" formControlName="contentCourse" required>
                     </div>
                 </div>
                 <div class="modal-footer">

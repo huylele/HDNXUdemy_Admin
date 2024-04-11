@@ -3,14 +3,15 @@ import { Component, ViewChild } from '@angular/core';
 // Get Modal
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Observable } from 'rxjs';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Store } from '@ngrx/store';
-import { addticketlistData, deleteticketlistData, fetchsupporticketsData, fetchticketlistData, updateticketlistData } from 'src/app/store/Tickets/ticket.actions';
-import { selectData, selectlistData } from 'src/app/store/Tickets/ticket-selector';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { cloneDeep } from 'lodash';
 import { assignesTickets } from 'src/app/core/data';
+import { StripeServices } from 'src/app/core/services/stripe.service';
+import { CouponModel } from 'src/app/models/models/coupon';
+import { PageResult } from 'src/app/models/models/repository_base';
+import { CouponPromotionModel } from 'src/app/models/request_model/coupon-promotion';
+import { MessengerServices } from 'src/app/core/services/messenger.service';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 
 @Component({
   selector: 'app-list-coupons',
@@ -24,23 +25,26 @@ export class ListCouponsComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-  deleteID: any;
+  deleteId: string;
   endItem: any
-  ListForm!: UntypedFormGroup;
-  submitted = false;
+  listCouponForm!: UntypedFormGroup;
   masterSelected!: boolean;
   supportList: any;
-  tickets: any;
+  coupons: PageResult<CouponModel[]>;
   // assigndata: any
   assignList: any;
   term: any
-  @ViewChild('addTickets', { static: false }) addTickets?: ModalDirective;
+  @ViewChild('addCoupons', { static: false }) addCoupon?: ModalDirective;
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
-  assignto: any = [];
-  editData: any;
-  alltickets: any;
+  assignto: CouponModel[] = [];
+  editData: CouponModel;
+  isLoading = false;
 
-  constructor(private formBuilder: UntypedFormBuilder, public store: Store,public datepipe:DatePipe) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    public datepipe: DatePipe,
+    private readonly stripeServices: StripeServices,
+    private readonly messengerServices: MessengerServices) {
   }
 
   ngOnInit(): void {
@@ -48,52 +52,49 @@ export class ListCouponsComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Support Tickets', active: true },
-      { label: 'List View', active: true }
+      { label: 'Home', active: true },
+      { label: 'List Coupon', active: true }
     ];
 
     /**
      * Form Validation
      */
-    this.ListForm = this.formBuilder.group({
+    this.listCouponForm = this.formBuilder.group({
       id: [''],
-      clientName: ['', [Validators.required]],
-      ticketTitle: ['', [Validators.required]],
-      createDate: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      priority: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      percentOff: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      nameOfCoupon: ['', [Validators.required]]
     });
 
-    this.store.dispatch(fetchsupporticketsData());
-    this.store.select(selectData).subscribe((data) => {
-      this.supportList = data;
-    });
-
-
-    setTimeout(() => {
-      this.store.dispatch(fetchticketlistData());
-      this.store.select(selectlistData).subscribe((data) => {
-        this.tickets = data;
-        this.alltickets = data;
-        this.tickets = cloneDeep(this.alltickets.slice(0, 10))
-      });
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1000)
-
-    this.assignList = assignesTickets
+    this.assignList = assignesTickets;
+    this.loadDataOfCoupon(1, 10);
   }
 
   // Edit Data
   editList(id: any) {
-    this.addTickets?.show()
+    this.addCoupon?.show();
     var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement
-    modaltitle.innerHTML = 'Edit Product'
+    modaltitle.innerHTML = 'Edit Value Of Coupon'
     var modal = document.getElementById('add-btn') as HTMLAreaElement
     modal.innerHTML = 'Update';
-    this.editData = this.tickets[id];
-    this.assignto = this.editData.assignedto;
-    this.ListForm.patchValue(this.tickets[id]);
+    this.editData = this.coupons.results[id];
+    this.listCouponForm.patchValue(this.coupons.results[id]);
+
+    const startDate = this.datepipe.transform(this.coupons.results[id].startDate, "MM/dd/yyyy hh:mm") || ''
+    const endDate = this.datepipe.transform(this.coupons.results[id].endDate, "MM/dd/yyyy hh:mm") || ''
+    this.listCouponForm.patchValue({ startDate: startDate, endDate: endDate });
+    console.log(this.listCouponForm.value);
+  }
+
+  addNewCoupon() {
+    this.addCoupon?.show();
+    var modaltitle = document.querySelector('.modal-title') as HTMLAreaElement
+    modaltitle.innerHTML = 'Add Value Of Coupon'
+    var modal = document.getElementById('add-btn') as HTMLAreaElement
+    modal.innerHTML = 'Add Coupon';
+    this.listCouponForm.reset();
   }
 
   // Add Assigne
@@ -103,7 +104,7 @@ export class ListCouponsComponent {
     } else {
       this.assignList[id].checked = '0'
     }
-   
+
     this.assignto = [];
     this.assignList.forEach((element: any) => {
       if (element.checked == '1') {
@@ -113,74 +114,60 @@ export class ListCouponsComponent {
   }
 
   // add Product
-  saveList() {
-    this.submitted = true
-    if (this.ListForm.valid) {
-      if (this.ListForm.get('id')?.value) {
-        const updatedData = {assignedto:this.assignto,...this.ListForm.value};
-        this.store.dispatch(updateticketlistData({ updatedData }));
+  saveForCouponPromotion() {
+    if (this.listCouponForm.valid) {
+      if (this.listCouponForm.get('id')?.value) {
+        const updatedData = this.listCouponForm.value as CouponPromotionModel;
+        this.stripeServices.updateCouponPromotionCode(updatedData).subscribe((res) => {
+          if (res.systemMessage === '' && res.retCode === 0) {
+            this.messengerServices.successes(Messenger.updateSuccessFull);
+            this.loadDataOfCoupon(1, 10);
+          } else {
+            this.messengerServices.errorWithIssue();
+            this.loadDataOfCoupon(1, 10);
+          }
+        })
       }
       else {
-        this.ListForm.controls['id'].setValue((this.alltickets.length + 1).toString());
-        const createDate = this.datepipe.transform(this.ListForm.get('createDate')?.value, "dd MMM, yyyy") || ''
-        const dueDate = this.datepipe.transform(this.ListForm.get('dueDate')?.value, "dd MMM, yyyy") || ''
-        this.ListForm.patchValue({ createDate: createDate,dueDate:dueDate });
-
-        const newData = {assignedto:this.assignto,...this.ListForm.value} 
-        this.store.dispatch(addticketlistData({ newData }));
+        this.stripeServices.createCouponPromotionCode(this.listCouponForm.value as CouponPromotionModel).subscribe((res) => {
+          if (res.systemMessage === '' && res.retCode === 0) {
+            this.messengerServices.successes(Messenger.createDataSuccessFull);
+            this.loadDataOfCoupon(1, 10);
+          } else {
+            this.messengerServices.errorWithIssue();
+            this.loadDataOfCoupon(1, 10);
+          }
+        })
       }
-      this.assignto = [];
-      this.ListForm.reset();
-      this.addTickets?.hide()
+      this.listCouponForm.reset();
+      this.addCoupon?.hide()
     }
   }
 
   checkedValGet: any[] = [];
-  // The master checkbox will check/ uncheck all items
-  checkUncheckAll(ev: any) {
-    this.tickets = this.tickets.map((x: { states: any }) => ({ ...x, states: ev.target.checked }));
-    var checkedVal: any[] = [];
-    var result;
-    for (var i = 0; i < this.tickets.length; i++) {
-      if (this.tickets[i].states == true) {
-        result = this.tickets[i].id;
-        checkedVal.push(result);
-      }
-    }
-
-    this.checkedValGet = checkedVal;
-    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
-  }
-
-  // Select Checkbox value Get
-  onCheckboxChange(e: any) {
-    var checkedVal: any[] = [];
-    var result
-    for (var i = 0; i < this.tickets.length; i++) {
-      if (this.tickets[i].states == true) {
-        result = this.tickets[i].id;
-        checkedVal.push(result);
-      }
-    }
-    this.checkedValGet = checkedVal
-    checkedVal.length > 0 ? document.getElementById("remove-actions")?.classList.remove('d-none') : document.getElementById("remove-actions")?.classList.add('d-none');
-  }
-
-
   // Delete Product
-  removeItem(id: any) {
-    this.deleteID = id
+  removeItem(id: string) {
+    this.deleteId = id;
     this.deleteRecordModal?.show()
   }
 
-  deleteData(id: any) {
+  deleteData(stripeCouponId: string) {
     this.deleteRecordModal?.hide();
-    if (id) {
-      this.store.dispatch(deleteticketlistData({ id: this.deleteID.toString() }));
+    if (stripeCouponId) {
+      this.stripeServices.deleteCouponForPromotion(stripeCouponId).subscribe((res) => {
+        if (res.systemMessage === '' && res.retCode === 0) {
+          this.messengerServices.successes(Messenger.updateSuccessFull);
+          this.deleteRecordModal?.hide();
+          this.masterSelected = false;
+          this.loadDataOfCoupon(1, 10);
+        } else {
+          this.messengerServices.errorWithIssue();
+          this.deleteRecordModal?.hide();
+          this.masterSelected = false;
+          this.loadDataOfCoupon(1, 10);
+        }
+      })
     }
-    this.store.dispatch(deleteticketlistData({ id: this.checkedValGet.toString() }));
-    this.deleteRecordModal?.hide();
-    this.masterSelected = false
   }
   // Sort Data
   direction: any = 'asc';
@@ -190,12 +177,12 @@ export class ListCouponsComponent {
     } else {
       this.direction = 'asc';
     }
-    const sortedArray = [...this.tickets]; // Create a new array
+    const sortedArray = [...this.coupons.results]; // Create a new array
     sortedArray.sort((a, b) => {
       const res = this.compare(a[column], b[column]);
       return this.direction === 'asc' ? res : -res;
     });
-    this.tickets = sortedArray;
+    this.coupons.results = sortedArray;
   }
   compare(v1: string | number, v2: string | number) {
     return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
@@ -204,11 +191,11 @@ export class ListCouponsComponent {
 
   // filterdata
   filterdata() {
-    if (this.term) {
-      this.tickets = this.alltickets.filter((es: any) => es.ticketTitle.toLowerCase().includes(this.term.toLowerCase()))
-    } else {
-      this.tickets = this.alltickets.slice(0, 10);
-    }
+    // if (this.term) {
+    //   this.coupons.results = this.alltickets.filter((es: any) => es.ticketTitle.toLowerCase().includes(this.term.toLowerCase()))
+    // } else {
+    //   this.coupons.results = this.alltickets.slice(0, 10);
+    // }
     // noResultElement
     this.updateNoResultDisplay();
   }
@@ -218,7 +205,7 @@ export class ListCouponsComponent {
     const noResultElement = document.querySelector('.noresult') as HTMLElement;
     const paginationElement = document.getElementById('pagination-element') as HTMLElement;
 
-    if (this.term && this.tickets.length === 0) {
+    if (this.term && this.coupons.results.length === 0) {
       noResultElement.classList.remove('d-none')
       paginationElement.classList.add('d-none')
 
@@ -232,7 +219,30 @@ export class ListCouponsComponent {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    this.tickets = this.alltickets.slice(startItem, this.endItem);
+    this.loadDataOfCoupon(startItem, 10);
+  }
+
+  loadDataOfCoupon(pageIndex: number, pageSize: number) {
+    this.isLoading = true;
+    this.stripeServices.getListCouponAndPromotion(pageIndex, pageSize).subscribe((res) => {
+      if (res.systemMessage === '' && res.retCode === 0) {
+        this.isLoading = false;
+        this.coupons = res.data;
+      } else {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  activeTheCoupon(id: number) {
+    this.stripeServices.activeCouponPromotion(id).subscribe((res) => {
+      if (res.systemMessage === '' && res.retCode === 0) {
+        this.isLoading = false;
+        this.loadDataOfCoupon(1, 10);
+      } else {
+        this.isLoading = false;
+      }
+    });
   }
 }
 
