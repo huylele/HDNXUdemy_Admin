@@ -20,6 +20,7 @@ import { ReturnUploadFile } from 'src/app/models/respone_model/return-upload-fil
 import Hls from 'hls.js';
 import { type Option } from 'artplayer/types/option';
 import Artplayer from 'artplayer';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 
 @Component({
   selector: 'app-create-course-details',
@@ -126,8 +127,8 @@ export class CreateCourseDetailsComponent {
   ngOnInit(): void {
     this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true },
-      { label: 'Nội dung khoá học', active: true }
+      { label: 'Course', active: true },
+      { label: 'Content of course', active: true }
     ];
 
 
@@ -201,7 +202,7 @@ export class CreateCourseDetailsComponent {
   public Editor = ClassicEditor;
   public items = ['Beginner', 'Advanced', 'Intermediate', 'Expert'];
   uploadedFiles: any[] = [];
-  
+
   // File Remove
   removeFile() {
     this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
@@ -227,12 +228,10 @@ export class CreateCourseDetailsComponent {
     if (this.contentCourseForm.valid) {
       let dataInsert: CourseContent =
       {
-        id: 0,
         name: this.contentCourseForm.value.contentCourse,
         idCourse: this.idCourse
       };
 
-      dataInsert.id = 0
       this.courseServices.createContentCourse(dataInsert).subscribe((res) => {
         if (res.retCode == 0 && res.systemMessage == "") {
           this.loadDataContentOfCourse(this.idCourse);
@@ -255,7 +254,6 @@ export class CreateCourseDetailsComponent {
   saveContentCourseDetails() {
     this.isLoading = true;
     const dataInsert: CourseContentDetails = {
-      id: 0,
       idContent: this.idContent,
       nameSubContent: this.contentDetailsCourseForm.value.nameSubContent,
       timeOfContent: '',
@@ -269,7 +267,7 @@ export class CreateCourseDetailsComponent {
         if (res.retCode == 0 && res.systemMessage == "") {
           this.isLoading = false;
           this.loadDataContentOfCourse(this.idCourse);
-          this.messengerService.successes("Cập nhật thành công");
+          this.messengerService.successes(Messenger.createDataSuccessFull);
         } else {
           this.isLoading = false;
           this.loadDataContentOfCourse(this.idCourse);
@@ -310,7 +308,7 @@ export class CreateCourseDetailsComponent {
     this.courseServices.updateInformationContentCourse(getDataUpdate).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == "") {
         this.isLoading = false
-        this.messengerService.successes("Cập nhật thành công");
+        this.messengerService.successes(Messenger.updateSuccessFull);
       } else {
         this.isLoading = false
         this.messengerService.errorWithIssue();

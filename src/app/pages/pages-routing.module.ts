@@ -18,9 +18,9 @@ const routes: Routes = [
       import('./learning/learning.module').then((m) => m.LearningModule),
   },
   {
-    path: 'invoices',
+    path: 'purchase-order',
     loadChildren: () =>
-      import('./invoices/invoices.module').then((m) => m.InvoicesModule),
+      import('./purchase-order/purchase-order.module').then((m) => m.PurchaseOrderModule),
   },
   {
     path: 'advance-ui',

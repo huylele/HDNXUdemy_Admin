@@ -122,7 +122,6 @@ export class ListFileUploadComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.uploadFileToCloudServices.createFileSoftware(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataOfSoftware();

@@ -132,7 +132,6 @@ export class CategoryComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.categoryService.createCategories(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataCategory();

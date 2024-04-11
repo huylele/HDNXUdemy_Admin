@@ -13,6 +13,7 @@ import { GetCourseWithDetailsContent } from 'src/app/models/respone_model/course
 import { ETypeProcessCourse } from 'src/app/models/enum/etype_project.enum';
 import { environment } from 'src/environments/environment';
 import { CourseContentDetails } from 'src/app/models/models/course-content';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -48,7 +49,7 @@ export class OverviewComponent {
     volume: 0.5,
     isLive: false,
     muted: false,
-    autoplay: false,
+    autoplay: true,
     pip: true,
     autoMini: true,
     setting: true,
@@ -107,8 +108,8 @@ export class OverviewComponent {
   ngOnInit(): void {
     this.idCourse = Number(this.routers.snapshot.paramMap.get('idCourse'));
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true },
-      { label: 'Xem chi tiết khoá học', active: true }
+      { label: 'Course', active: true },
+      { label: 'Overview Course', active: true }
     ];
 
 
@@ -209,7 +210,7 @@ export class OverviewComponent {
     this.courseServices.updateStatusCourse(this.courseAndDetailContent).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == "") {
         this.isLoading = false;
-        this.messengerService.successes("Cập nhật trạng thái thành công").then((result) => {
+        this.messengerService.successes(Messenger.updateSuccessFull).then((result) => {
           if (result) {
             this.loadDataOfCourseOverview();
           }

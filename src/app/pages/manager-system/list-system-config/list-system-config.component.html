@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div id="contactList" class="mt-2">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <h6 class="card-title flex-grow-1 mb-0">Quản lý hệ thống</h6>
+                        <h6 class="card-title flex-grow-1 mb-0">Manager Systems</h6>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
@@ -12,8 +12,8 @@
                                 <tr>
                                     <th scope="col" class="sort cursor-pointer" filesortable="icon" (click)="onSort('icon')">Loại</th>
                                     <th scope="col" class="sort cursor-pointer" filesortable="title" (click)="onSort('title')">Key Config</th>
-                                    <th scope="col" class="sort cursor-pointer" filesortable="item" (click)="onSort('item')">Giá trị</th>
-                                    <th scope="col" class="sort cursor-pointer">Hành động</th>
+                                    <th scope="col" class="sort cursor-pointer" filesortable="item" (click)="onSort('item')">Value</th>
+                                    <th scope="col" class="sort cursor-pointer">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="list" id="file-list">
@@ -35,8 +35,8 @@
                         </table><!-- end table -->
                         <div class="noresult" style="display: none">
                             <div class="text-center">
-                                <h5 class="mt-2">Xin lỗi! Không tim thấy thông tin</h5>
-                                <p class="text-muted mb-0">Vui lòng kiểm tra lại.</p>
+                                <h5 class="mt-2">Sorry! Not found the infomation</h5>
+                                <p class="text-muted mb-0">Please check again.</p>
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                     <div class="row align-items-center text-center text-sm-start mt-3">
                         <div class="col-sm">
                             <div class="text-muted">
-                                Hiển thị <span class="fw-semibold">{{fileSystemConfigData?.length}}</span> of <span class="fw-semibold">{{fileSystemConfigData?.length}}</span>
-                                Kết quả
+                                Display <span class="fw-semibold">{{fileSystemConfigData?.length}}</span> of <span class="fw-semibold">{{fileSystemConfigData?.length}}</span>
+                                Result
                             </div>
                         </div>
                         <div class="col-sm-auto  mt-3 mt-sm-0">

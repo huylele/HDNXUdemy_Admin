@@ -21,13 +21,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 // Component
-import { ListSubscriptionsComponent } from './list-subscriptions/list-subscriptions.component';
+import { ListPromotionsComponent } from './list-subscriptions/list-promotion.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ListCouponsComponent } from './list-coupons/list-coupons.component';
 
 @NgModule({
   declarations: [
-    ListSubscriptionsComponent,
+    ListPromotionsComponent,
     OverviewComponent,
     ListCouponsComponent
   ],

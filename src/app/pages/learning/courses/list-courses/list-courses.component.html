@@ -10,18 +10,18 @@
                 <div class="card-body">
                     <div class="row align-items-center g-2">
                         <div class="col-lg-3 me-auto">
-                            <h6 class="card-title mb-0">Danh sách khoá học<span class="badge bg-primary ms-1 align-baseline">1452</span></h6>
+                            <h6 class="card-title mb-0">List of course<span class="badge bg-primary ms-1 align-baseline">1452</span></h6>
                         </div><!--end col-->
                         <div class="col-lg-2">
                             <div class="search-box">
-                                <input type="text" class="form-control search" placeholder="Tìm tên khoá học..." [(ngModel)]="term" (keyup)="filterdata()">
+                                <input type="text" class="form-control search" placeholder="Search name of the course" [(ngModel)]="term" (keyup)="filterdata()">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div><!--end col-->
                         <div class="col-lg-auto">
                             <div class="hstack flex-wrap gap-2">
                                 <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteRecordModal.show()"><i class="ri-delete-bin-2-line"></i></button>
-                                <a (click)="addNewCourse()" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Tạo khoá học</a>
+                                <a (click)="addNewCourse()" class="btn btn-secondary"><i class="bi bi-plus-circle align-baseline me-1"></i> Create Course</a>
                                 <div>
                                     <button type="button" class="btn btn-info me-1" (click)="openEnd()"><i class="bi bi-funnel align-baseline me-1"></i> Filter</button>
                                 </div>
@@ -36,13 +36,13 @@
                                 <tr>
                                     <th scope="col" class="cursor-pointer" (click)="onSort('id')">Id</th>
                                     <th scope="col" class="cursor-pointer" (click)="onSort('category')">Category</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('name')">Tên khoá học</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('instructor')">Người tạo</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('lessons')">Số chương KH</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('students')">Người đăng ký</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('fees')">Fees</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('rating')">Đánh giá</th>
-                                    <th scope="col" class="cursor-pointer" (click)="onSort('status')">Trạng thái</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('name')">Name of course</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('author')">Author</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('num-chapter')">Num chapter</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('students')">Number Register</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('amount')">Amount</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('reviews')">Reviews</th>
+                                    <th scope="col" class="cursor-pointer" (click)="onSort('status')">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@
                                     <td class="instructor">{{data.userName}}</td>
                                     <td class="lessons">{{data.totalChapter}}</td>
                                     <td class="students">{{data.totalStudentRegister}}</td>
-                                    <td class="fees"><span class="fw-medium">${{data.priceOfCourse}}</span></td>
+                                    <td class="fees"><span class="fw-medium">{{data.priceOfCourse | currency}}</span></td>
                                     <td class="rating"><i class="bi bi-star-fill text-warning align-baseline me-1"></i>
                                         <span class="rate-value"> {{data.totalVoteOfCourse}}</span>
                                     </td>
@@ -260,13 +260,13 @@
                         <i class="bi bi-trash display-5"></i>
                     </div>
                     <div class="mt-4">
-                        <h4 class="mb-2">Are you sure ?</h4>
-                        <p class="text-muted mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                        <h4 class="mb-2">Bạn có chắc chắn muốn xoá ?</h4>
+                        <p class="text-muted mx-3 mb-0">Bạn có chắc chắn muốn xoá dòng dữ liệu này ?</p>
                     </div>
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
-                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteRecordModal.hide()">Close</button>
-                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record" (click)="deleteData(deleteID)">Yes, Delete It!</button>
+                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteRecordModal.hide()">Đóng</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record" (click)="deleteData(deleteID)">Đúng, Xoá dữ liệu!</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->

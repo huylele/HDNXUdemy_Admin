@@ -257,7 +257,7 @@ export const MENU: MenuItem[] = [
         subItems: [
             {
                 id: 44,
-                label: 'MENUITEMS.APPS.LIST.LISTSUBSCRIPTIONS',
+                label: 'MENUITEMS.APPS.LIST.LISTSOFPROMOTION',
                 link: '/tickets/list',
                 parentId: 43
             },

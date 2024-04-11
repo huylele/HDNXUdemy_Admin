@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Component
 import { OverviewComponent } from './overview/overview.component';
-import { ListSubscriptionsComponent } from './list-subscriptions/list-subscriptions.component';
+import { ListPromotionsComponent } from './list-subscriptions/list-promotion.component';
 import { ListCouponsComponent } from './list-coupons/list-coupons.component';
 
 const routes: Routes = [
   {
-    path: 'list-subscriptions',
-    component: ListSubscriptionsComponent
+    path: 'list-promotion',
+    component: ListPromotionsComponent
   },
   {
     path: 'overview',

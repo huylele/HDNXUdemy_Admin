@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { MessengerServices } from 'src/app/core/services/messenger.service';
 import { StudentServices } from 'src/app/core/services/student.service';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 import { ERoles } from 'src/app/models/enum/etype_project.enum';
 import { StudentUser } from 'src/app/models/models/student-user';
 
@@ -122,7 +123,6 @@ export class AddEditAccountUserComponent implements OnInit {
     this.isLoading = true;
     if (this.informationForm.valid) {
       const dataInsert: StudentUser = {
-        id: 0,
         name: this.informationForm.value.name,
         email: this.informationForm.value.email,
         password: '',
@@ -140,7 +140,7 @@ export class AddEditAccountUserComponent implements OnInit {
         this.studentUserServices.createStudent(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "" && res.data == true) {
             this.isLoading = false;
-            this.messengerService.successes("Tạo người dùng thành công");
+            this.messengerService.successes(Messenger.createDataSuccessFull);
             this.informationForm.reset();
           } else {
             this.isLoading = false;
@@ -157,7 +157,7 @@ export class AddEditAccountUserComponent implements OnInit {
         this.studentUserServices.updateStudent(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "" && res.data == true) {
             this.isLoading = false;
-            this.messengerService.successes("Cập nhật khoá học thành công");
+            this.messengerService.successes(Messenger.updateSuccessFull);
           } else {
             this.isLoading = false;
             this.messengerService.errorWithIssue();
@@ -194,7 +194,7 @@ export class AddEditAccountUserComponent implements OnInit {
     this.studentUserServices.updateStudent(this.student).subscribe((res) => {
       if (res.retCode == 0 && res.systemMessage == "" && res.data == true) {
         this.isLoading = false;
-        this.messengerService.successes("Cập nhật khoá học thành công");
+        this.messengerService.successes(Messenger.updateSuccessFull);
       } else {
         this.isLoading = false;
         this.messengerService.errorWithIssue();

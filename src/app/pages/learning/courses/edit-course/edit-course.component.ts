@@ -6,6 +6,7 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { CategoryServices } from 'src/app/core/services/category.service';
 import { CourseServices } from 'src/app/core/services/course.service';
 import { MessengerServices } from 'src/app/core/services/messenger.service';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 import { CategoryModel } from 'src/app/models/models/category';
 import { Course } from 'src/app/models/models/course';
 import { ReturnUploadFile } from 'src/app/models/respone_model/return-upload-file';
@@ -24,12 +25,10 @@ export class EditCourseComponent {
   filesPicture: File;
   filesVideo: File;
   courseInsertData: Course ={
-    id: 0,
     title: '',
     shortDescription: '',
     isFree: false,
     introduce: '',
-    idCategory: 0,
     levelCourse: '',
     languages: '',
     description: '',
@@ -54,10 +53,10 @@ export class EditCourseComponent {
   isLoading = false;
 
   ngOnInit(): void {
-    const id = this.routers.snapshot.paramMap.get('id');
+    const id = Number(this.routers.snapshot.paramMap.get('id'));
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true, linkRouter: '/learning/list-course', isRouter: true },
-      { label: 'Tạo khoá học', active: true, linkRouter: '', isRouter: false },
+      { label: 'Course', active: true, linkRouter: '/learning/list-course', isRouter: true },
+      { label: 'Edit Course', active: true, linkRouter: '', isRouter: false },
     ];
 
     this.courseForm = this.formBuilder.group({
@@ -80,7 +79,7 @@ export class EditCourseComponent {
       description: [],
     });
     this.loadDataCategory();
-    this.loadDataOfCourse(Number(id) ?? 0);
+    this.loadDataOfCourse(id);
 
     this.courseForm.controls['idCategory'].valueChanges.subscribe((value) => {
       this.nameCategory = this.categories.find(x => x.id == value)?.name ?? '';
@@ -182,17 +181,16 @@ export class EditCourseComponent {
         dataInsert.processCourse = this.courseInsertData.processCourse;
         this.courseServices.updateInformationCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
-            this.messengerService.successes("Tạo khoá học thành công, vui lòng thêm chi tiết khoá học");
+            this.messengerService.successes(Messenger.createDataSuccessFull);
           } else {
             this.messengerService.errorWithIssue();
           }
         });
       } else {
-        dataInsert.id = 0
         dataInsert.processCourse = 0;
         this.courseServices.createCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
-            this.messengerService.successes("Cập nhật thành công");
+            this.messengerService.successes(Messenger.updateSuccessFull);
           } else {
             this.messengerService.errorWithIssue();
           }

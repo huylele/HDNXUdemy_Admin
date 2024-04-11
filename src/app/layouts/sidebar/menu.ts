@@ -108,7 +108,7 @@ export const MENU: MenuItem[] = [
             {
                 id: 40,
                 label: 'MENUITEMS.APPS.LIST.LISTINVOICE',
-                link: '/invoices/list-invoices',
+                link: '/purchase-order/list-purchase-order',
                 parentId: 39
             }
         ]
@@ -121,8 +121,8 @@ export const MENU: MenuItem[] = [
         subItems: [
             {
                 id: 44,
-                label: 'MENUITEMS.APPS.LIST.LISTSUBSCRIPTIONS',
-                link: '/subscriptions/list-subscriptions',
+                label: 'MENUITEMS.APPS.LIST.LISTSOFPROMOTION',
+                link: '/subscriptions/list-promotion',
                 parentId: 43
             },
             {

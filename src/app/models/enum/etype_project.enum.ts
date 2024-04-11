@@ -12,3 +12,10 @@ export enum ERoles {
     Student,
     Teacher
 }
+
+export enum PurchaseOrderCode {
+    Request,
+    Payment, 
+    Pending,
+    Reject,
+}

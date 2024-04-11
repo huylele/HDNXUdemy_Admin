@@ -6,6 +6,7 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { CategoryServices } from 'src/app/core/services/category.service';
 import { CourseServices } from 'src/app/core/services/course.service';
 import { MessengerServices } from 'src/app/core/services/messenger.service';
+import { Messenger } from 'src/app/models/contants/ennum_router';
 import { CategoryModel } from 'src/app/models/models/category';
 import { Course } from 'src/app/models/models/course';
 import { ReturnUploadFile } from 'src/app/models/respone_model/return-upload-file';
@@ -39,8 +40,8 @@ export class CreateCourseComponent {
 
   ngOnInit(): void {
     this.breadCrumbItems = [
-      { label: 'Khoá học', active: true, linkRouter: '/learning/list-course', isRouter: true },
-      { label: 'Tạo khoá học', active: true, linkRouter: '', isRouter: false },
+      { label: 'Course', active: true, linkRouter: '/learning/list-course', isRouter: true },
+      { label: 'Add Course', active: true, linkRouter: '', isRouter: false },
     ];
 
     this.courseForm = this.formBuilder.group({
@@ -130,8 +131,8 @@ export class CreateCourseComponent {
 
   public items = ['Bắt đầu', 'Trung bình', 'Cấp cao', 'Chuyên gia']
 
-  addDetailsForCourse() {
-    this.router.navigate(['/learning/courses/create-course-details']);
+  addDetailsForCourse(idCourse: number) {
+    this.router.navigate([`/learning/courses/create-course-details/${idCourse}`]);
   }
 
   saveCourse() {
@@ -159,21 +160,22 @@ export class CreateCourseComponent {
         fileUrl: this.uploadedVideoFile.fileName,
         processCourse: 0
       };
-      if (idCourse != null && idCourse != 0 && idCourse != "" && idCourse != undefined) {
+      if (idCourse !== null && idCourse !== 0 && idCourse !== "" && idCourse != undefined) {
         dataInsert.processCourse = this.courseInsertData.processCourse;
         this.courseServices.updateInformationCourse(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
-            this.messengerService.successes("Tạo khoá học thành công, vui lòng thêm chi tiết khoá học");
+            this.messengerService.successes(Messenger.createDataSuccessFull);
           } else {
             this.messengerService.errorWithIssue();
           }
         });
       } else {
-        dataInsert.id = 0
         dataInsert.processCourse = 0;
         this.courseServices.createCourse(dataInsert).subscribe((res) => {
-          if (res.retCode == 0 && res.systemMessage == "") {
-            this.messengerService.successes("Cập nhật thành công");
+          if (res.retCode === 0 && res.systemMessage === "" && res.data.id !== 0) {
+            this.messengerService.successes(Messenger.updateSuccessFull);
+            this.addDetailsForCourse(res.data.id);
+            this.isCreateCourse = true;
           } else {
             this.messengerService.errorWithIssue();
           }

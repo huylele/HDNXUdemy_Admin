@@ -15,12 +15,12 @@ export class CourseServices {
 
     createCourse(model: Course) {
         const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'CreateCourse', model.id);
-        return this.transferHttp.post(ApiUrl, model).pipe(map((res: RepositoryModel<boolean>) => res));
+        return this.transferHttp.post(ApiUrl, model).pipe(map((res: RepositoryModel<Course>) => res));
     }
 
     updateStatusCourse(model: Course) {
-        const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'UpdateStatusCourse', model.id);
-        return this.transferHttp.put(ApiUrl, model).pipe(map((res: RepositoryModel<boolean>) => res));
+        const ApiUrl = LinkSettings.GetResLinkSetting('Course', 'UpdateStatusCourse', model.id, model.status, model.processCourse);
+        return this.transferHttp.putUrl(ApiUrl).pipe(map((res: RepositoryModel<boolean>) => res));
     }
 
     updateInformationCourse(model: Course) {

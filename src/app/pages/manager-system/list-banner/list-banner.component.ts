@@ -49,8 +49,8 @@ export class ListBannerComponent {
      * BreadCrumb
      */
     this.breadCrumbItems = [
-      { label: 'Quản lý hệ thống', active: true },
-      { label: 'Danh sách banner', active: true }
+      { label: 'Manager System', active: true },
+      { label: 'List of Banner', active: true }
     ];
 
     /**
@@ -139,7 +139,6 @@ export class ListBannerComponent {
           }
         });
       } else {
-        dataInsert.id = 0
         this.bannerService.createBanner(dataInsert).subscribe((res) => {
           if (res.retCode == 0 && res.systemMessage == "") {
             this.loadDataCategory();

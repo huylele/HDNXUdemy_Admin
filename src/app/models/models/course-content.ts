@@ -1,11 +1,11 @@
 export class CourseContent {
-    id: number;
+    id?: number;
     name: string;
     idCourse: number;
 }
 
 export class CourseContentDetails {
-    id: number;
+    id?: number;
     idContent: number;
     nameSubContent: string;
     timeOfContent: string;

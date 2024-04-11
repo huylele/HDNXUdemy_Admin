@@ -1,26 +1,26 @@
 {
   "MENUITEMS": {
     "MENU": {
-      "TEXT": "Hệ thống"
+      "TEXT": "Systems"
     },
     "DASHBOARD": {
-      "TEXT": "Biểu đồ",
+      "TEXT": "Dashboard",
       "LIST": {
         "ANALYTICS": "Analytics",
         "CRM": "CRM",
         "ECOMMERCE": "Ecommerce",
         "LEARNING": "Learning",
-        "REALESTATE": "Tổng quan"
+        "REALESTATE": "Overview"
       }
     },
     "APPS": {
-      "TEXT": "Quản lý",
+      "TEXT": "Manager Apps",
       "LIST": {
         "CALENDAR": "Calendar",
         "CHAT": "Chat",
         "EMAIL": "Email",
-        "REPORTS": "Báo cáo",
-        "MANAGERSYSTEMS" : "Quản lý hệ thống",
+        "REPORTS": "Report",
+        "MANAGERSYSTEMS" : "Manager Systems",
         "PRODUCTS": "Products",
         "PRODUCTGRID": "Products Grid",
         "PRODUCTDETAILS": "Product Details",
@@ -33,24 +33,24 @@
         "SELLERS": "Sellers",
         "SELLEROVERVIEW": "Seller Overview",
         "FILEMANAGER": "File Manager",
-        "LEARNING": "Quản lý khoá học",
-        "COURSES": "Khoá học",
+        "LEARNING": "Manager Courses",
+        "COURSES": "Courses",
         "LISTVIEW": "List View",
         "GRIDVIEW": "Grid View",
-        "CATEGORY": "Danh mục khoá học",
+        "CATEGORY": "Course Category",
         "OVERVIEW": "Overview",
         "CREATECOURSE": "Create Course",
-        "STUDENTS": "Học viên",
-        "TEACHER": "Giảng viên",
-        "LISTSTUDENT": "Danh sách học viên",
+        "STUDENTS": "Students",
+        "TEACHER": "Teachers",
+        "LISTSTUDENT": "List Students",
         "MYCOURSES": "My Courses",
         "INSTRUCTORS": "Instructors",
         "CREATEINSTRUCTOR": "Create Instructor",
-        "INVOICES": "Đơn hàng",
+        "INVOICES": "Orders",
         "CREATEINVOICE": "Create Invoice",
-        "SUBSCRIPTIONS": "Quản lý Subscriptions",
-        "USERMANAGER": "Quản lý người dùng",
-        "LISTINGGRID": "Danh sách người dùng",
+        "SUBSCRIPTIONS": "Manager Subscriptions",
+        "USERMANAGER": "Manager Users",
+        "LISTINGGRID": "List Users",
         "LISTINGLIST": "Listing List",
         "LISTINGMAP": "Listing Map",
         "PROPERTYOVERVIEW": "Property Overview",
@@ -58,17 +58,17 @@
         "AGENCIES": "Agencies",
         "ADDPROPERTY": "Add Property",
         "EARNINGS": "Earnings",
-        "LISTCOURSES": "Danh sách khoá học",
-        "LISTTEACHERS": "Danh sách giảng viên",
-        "LISTINVOICE": "Danh sách đơn hàng",
-        "LISTSUBSCRIPTIONS": "Danh sách Subs",
+        "LISTCOURSES": "List of Courses",
+        "LISTTEACHERS": "List of Teachers",
+        "LISTINVOICE": "List of Orders",
+        "LISTSOFPROMOTION": "List of Promotion",
         "ONLINETEACHERS" : "Online Teachers",
-        "LISTONLINETEACHERS" : "Danh sách online giảng viên",
-        "MANAGERNEWS": "Quản lý tin tức",
-        "MANAGERFILE": "Quản lý file",
-        "MANAGERCOUPON": "Quản lý coupon",
-        "MANAGERBANNER": "Quản lý Banner",
-        "MANAGERSYSTEMCONFIG": "Quản lý config hệ thống"
+        "LISTONLINETEACHERS" : "List of teacher online",
+        "MANAGERNEWS": "Manager news",
+        "MANAGERFILE": "Manager file",
+        "MANAGERCOUPON": "Manager coupon",
+        "MANAGERBANNER": "Manager Banner",
+        "MANAGERSYSTEMCONFIG": "Manager config Systems"
       }
     },
     "PAGES": {
